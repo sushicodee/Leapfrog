@@ -15,3 +15,8 @@ var data = {
 
 };
 console.log(data);
+
+var nameElement = document.createElement('p');
+nameElement.setAttribute('class','name');
+nameElement.innerHTML = data.name;
+document.appendChild(newElement);

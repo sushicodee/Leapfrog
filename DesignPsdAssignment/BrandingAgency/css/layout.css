@@ -1,0 +1,726 @@
+.seperator{
+  border-bottom:1px solid grey;
+}
+
+/* implemet after slider class */
+
+/* .blog-carousel-item-container{
+  position:relative;
+}
+
+.blog-carousel-item-container ol{
+  position: absolute;
+} */
+
+/* 
+.blog-carousel-item-container .blog-card-container:first-child {
+  display: none;
+} */
+.blog-carousel-item-container .blog-card-container:first-child + div + div {
+  display: none;
+}
+
+.blog-carousel-item-container .blog-card-container:first-child + div {
+  display: none;
+}
+
+
+.testimonial-carousel-inner .testimonial-carousel-item:first-child{
+  display:none;
+}
+.testimonial-carousel-inner .testimonial-carousel-item:first-child + div
+ {
+  display: none;
+}
+
+
+
+
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+/* .header-wrapper {
+  background-color: #636363;
+} */
+
+
+
+/* header */
+
+
+
+
+.logo-container {
+  width: 7.0085%;
+  float: left;
+}
+
+.toggle-container {
+  padding-top: 6px;
+  /* width:1.7094%; */
+  float: right;
+}
+
+.header-info,
+.about-agency-info,
+.best-projects-info , .blog-info , .contact-info ,.contact-form
+ {
+  margin: auto;
+  width: 62.3931%;
+}
+
+.blog-card-info{
+  background-color:white;
+}
+
+.blog-card-info{
+  /* margin-left:15px; */
+  margin-right:15px;
+}
+
+.blog-card-container .blog-card-item:first-child .blog-card-info {
+  margin-left: 0;
+}
+
+.blog-card-container .blog-card-item:last-child .blog-card-info {
+  margin-right: 0;
+}
+
+
+.blog-card-item:last-child{
+  margin-right:0px;
+}
+
+/* agency-insights */
+.about-agency-insights {
+  background-image: url("../images/body/pattern/insights-background.png");
+}
+
+.agency-insights-item {
+  width: 23.0769%;
+  float: left;
+}
+
+.testimonial-carousel-inner {
+  background-image: url("../images/body/pattern/Testimonial-background.png");
+  position: relative;
+}
+
+.testimonial-carousel-inner ol {
+  position: absolute;
+}
+
+
+/* grid info on image */
+.image-item-long, .image-item-small{
+  position:relative;
+}
+
+.grid-item-info{
+  position: absolute;
+  width:100%;
+  background-color:white;
+  display:none;
+}
+
+/* blog card single item */
+.blog-card-item {
+  /* width: 31.6239%; */
+  width:33.333%;
+  float: left;
+}
+
+.blog-banner {
+  position: relative;
+}
+
+.footer-wrapper {
+  background-color: black;
+  color: white;
+}
+
+/* mobile */
+
+@media (min-width: 375px) {
+
+  .header-wrapper {
+    margin: auto;
+    width: 100%;
+    /* width:23.4375em;     */
+  }
+
+  .header-container {
+    margin: 0px 16px 0px 16px;
+  }
+  .header-overlay {
+    /* width: 100%; */
+    /* height:50%; */
+    margin: auto;
+    background-color:#000;
+  }
+
+  .header-info {
+    padding: 10px;
+  }
+  .dropdown-container{
+    display:none;
+  }
+  .body-wrapper {
+    margin: auto;
+    width: 100%;
+    background-color:#f6f6f6
+  }
+  .body-container {
+    margin: 0px 16px 0px 16px;
+  }
+
+  .about-agency-info {
+    padding: 30px 0;
+  }
+
+  .agency-insights-inner {
+    padding: 16px;
+  }
+  .agency-insights-item {
+    width: 50%;
+    float: left;
+    padding: 20px 0px;
+  }
+
+  /* .clients-container{
+    padding-top: 17px;
+    padding-bottom: 18px;
+  } */
+  .best-projects-info , .blog-info {
+    padding: 30px 0;
+  }
+
+  /* image grid */
+  .image-item-small {
+    width: 90%;
+    /* height: 187px; */
+    background-color: grey;
+    margin: 15px auto;
+  }
+
+  .image-item-long {
+    width: 90%;
+    /* height: 404px; */
+    background-color: white;
+    margin: 15px auto;
+  }
+
+  .image-item-small img, .image-item-long img{
+    width:100%;
+    position:relative;
+  }
+  .grid-image-outer {
+    margin: auto;
+  }
+
+  .grid-image-inner {
+    width: 23.125em;
+    margin: auto;
+  }
+
+  
+  .testimonial-carousel-inner{
+    position:relative;
+    height:442.78px;
+    overflow: hidden;
+  }
+  
+  .testimonial-carousel-item{
+    /* float:left;
+    position:absolute; */
+    color:white;
+    margin-top:189px;
+    }
+
+    
+  .testimonial-carousel-item p{
+      width:770px;
+      margin:auto;
+  }
+
+  .testimonial-container{
+    float:right;
+    width:80%;
+
+  }
+  .clients-container{
+    float:left;
+    width:20%;
+  }
+  .blog-carousel-container{
+    margin-top: 18px;
+  }
+
+  .blog-banner{
+    height: 142.88px;
+    background-color:#dfdfdf;
+    /* margin-left:15px; */
+    margin-right:15px;
+    /* margin-left:1.2820%; */
+    /* margin-right:1.2820%; */
+  }
+
+  
+  .blog-card-container .blog-card-item:first-child .blog-banner{
+    margin-left:0;
+  }
+  .blog-card-container .blog-card-item:last-child .blog-banner{
+    margin-right:0;
+  }
+
+  .contact-info {
+    margin: auto;
+    width: 62.3931%;
+    padding: 108px 0px 15px 0px;
+  }
+  .contact-details {
+    padding-top: 15px;
+  }
+
+  .contact-form {
+    margin: auto;
+    width: 62.3931%;
+    padding-bottom: 30px;
+  }
+
+  .footer-wrapper {
+    margin: auto;
+    width: 100%;
+  }
+  .footer-container {
+    margin: 0px 16px 0px 16px;
+  }
+  .footer-top {
+    margin: 0px 16px 0px 16px;
+  }
+
+  .footer-top ol li {
+    margin: auto;
+    width: 62.3931%;
+  }
+  .about-us ul li{
+    float: left;
+    width: 4.8648%;
+  }
+
+  .follow-links{
+    width: 400%;
+  }
+  .about-us,.lastest-twits, .instagram-feed{
+    padding:18px 0;
+  }
+
+
+  .footer-bottom {
+    margin: auto;
+    /* width: 62.3931%; */
+  }
+  .footer-bottom {
+    margin: 0px 16px 0px 16px;
+  }
+}
+
+/* tablet */
+@media (min-width: 768px) {
+  body {
+    background-color: white;
+  }
+  .header-wrapper {
+    margin: auto;
+    width: 100%;
+    /* width: 48em; */
+  }
+  
+  .header-container{
+  width:85.6515%;
+  }
+
+     .header-container{
+    position: absolute;
+    top: 0;
+    margin: auto;
+    left: 0;
+    right: 0;
+   }
+
+   .dropdown-container{
+    display:block;
+  }
+
+
+  .body-container {
+    margin: unset;
+  }
+
+  .about-agency-info,
+  .agency-insights-inner,
+  .best-projects-container,
+  .clients-container ol,
+  .latest-blog-container,
+  .contact-container, .footer-top{
+    /* width: 64em; */
+    width: 43.75em;
+    margin: auto;
+  }
+
+  .best-projects-info {
+    padding: 48px 0px 28.5px 0px;
+}
+
+
+  .image-item-small {
+    width: 100%;
+  }
+
+  .image-item-long {
+    width: 100%;
+  }
+
+  .grid-1 {
+    float: none;
+    /* width: 63.2478%; */
+    width: 65.8119%;
+  }
+
+  .grid-1 div {
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 30px;
+    margin-top: 0px;
+  }
+
+  .grid-2 {
+    float: none;
+  }
+  .grid-image-col-1 {
+    /* width:46.25%; */
+    float: left;
+    width: 48.421%;
+  }
+
+  .grid-image-col-2 {
+    /* width:46.25%; */
+    float: right;
+    width: 48.421%;
+  }
+
+  .grid-image-col-3 div {
+    float: none;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 30px;
+    margin-top: 0px;
+  }
+
+  .grid-1 .grid-image-col-1,
+  .grid-1 .grid-image-col-2 {
+    margin-bottom: 0px;
+  }
+
+  .grid-image-col-3 div {
+    width: 48.421%;
+  }
+
+  .grid-image-col-3 .image-item-small,
+  .grid-image-col-3 .image-item-long {
+    float: left;
+  }
+
+  .grid-image-col-3 .image-item-long {
+    float: right;
+  }
+
+  .grid-image-col-3 .image-item-small .grid-item-info,
+  .grid-image-col-3 .image-item-long .grid-item-info{
+    width:100%; 
+  }
+  .grid-2 {
+    /* float:right; */
+    width: 65.8119%;
+  }
+
+  .testimonial-container{
+    float:none;
+    width:100%;
+  }
+  .clients-container{
+    float:none;
+    width:100%;
+    padding-top: 37px;
+    padding-bottom: 38px;
+  }
+
+  .blog-carousel-container{
+    margin-top: 38px;
+  }
+
+  .blog-banner{
+    height: 142.88px;
+  }
+
+  .agency-insights-item {
+    width: 25%;
+    float: left;
+    padding: 20px 0px;
+  }
+
+  .contact-info {
+    float: left;
+    /* width: 50%; */
+    width:42.7350%;
+  }
+  .contact-form {
+    float: right;
+    /* width: 50%; */
+    width: 57.2649%;
+    padding: 108px 0px 100px 0px;
+  }
+
+
+}
+
+/* desktop */
+@media (min-width: 1024px) {
+  body {
+    background-color: #f6f6f6
+  }
+  .header-wrapper {
+    /* width:1860px;   */
+    margin: auto;
+  }
+  .header-container {
+    /* width: 64em; */
+    margin: auto;
+    /* width: 98.6509%; */
+  }
+
+  .header-overlay{
+    width:64em;
+    margin:auto;
+    position: relative;
+   }
+
+   /* .header-container{
+    position: absolute;
+    top: 0;
+    margin: auto;
+    left: 0;
+    right: 0;
+   } */
+
+   .header-info{
+    padding:30px 0px 0px 0px;
+   }
+
+   .dropdown-container{
+     margin:auto;
+   }
+
+
+  .body-wrapper {
+    margin: auto;
+  }
+  .body-container {
+    /* width: 64em;*/
+    width: 100%;
+  }
+  .about-agency-info,
+  .agency-insights-inner,
+  .best-projects-container,
+  .clients-container ol,
+  .latest-blog-container,
+  .contact-container, .footer-top{
+    /* width: 64em; */
+    width: 54.8169em;
+    margin: auto;
+  }
+
+  .about-agency-info {
+    padding: 96px 0px 100px 0px;
+  }
+
+
+  .agency-insights-inner {
+    padding: 0;
+  }
+  .agency-insights-item {
+    width: 23.0769%;
+    padding: 120px 22px 100px 0px;
+  }
+
+  .agency-insights-inner .agency-insights-item:last-child{
+    padding-right:0px;
+  }
+  .agency-insights-item:last-child {
+    padding-right: 0px;
+  }
+
+
+  .best-projects-info {
+    padding: 96px 0px 57px 0px;
+}
+  /* image-grid */
+
+  .image-item-small {
+    position:relative;
+    width: 100%;
+  }
+
+  .image-item-long {
+    position:relative;
+    width: 100%;
+  }
+  .grid-1 {
+    float: left;
+    /* width: 63.2478%; */
+    width: 65.8119%;
+  }
+
+  .grid-1 div {
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 30px;
+    margin-top: 0px;
+  }
+  .grid-image-col-1 {
+    /* width:46.25%; */
+    width: 48.421%;
+  }
+
+  .grid-image-col-2 {
+    /* width:46.25%; */
+    width: 48.421%;
+  }
+
+  .grid-image-col-3 div {
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 30px;
+    margin-top: 0px;
+  }
+
+  .grid-2 {
+    float: right;
+    width: 31.6239%;
+  }
+
+  .grid-image-col-3 div:first-child,
+  .grid-image-col-3 div:last-child,
+  .grid-image-col-3 div:first-child + div {
+    float: none;
+    width: 100%;
+  }
+  .clients-container {
+    padding-top: 67px;
+    padding-bottom: 68px;
+  }
+
+
+/* latest-blog */
+.latest-blog-container{
+  margin-top:98px;
+}
+
+  .blog-banner{
+    height: 179.88px;
+    background-color:#dfdfdf;
+    /* margin-left:15px; */
+    margin-right:15px;
+    /* margin-left:1.2820%; */
+    /* margin-right:1.2820%; */
+  }
+
+ 
+
+
+
+  .testimonial-container{
+    margin-top:68px;
+  }
+
+
+  .clients-container ol {
+    /* width: 87.5748%; */
+    margin: auto;
+  }
+
+  .blog-carousel-container{
+    margin-top: 58px;
+  }
+
+  .footer-wrapper {
+    margin: auto;
+  }
+  .footer-top {
+    padding-top:83px;
+    padding-bottom:83px;
+  }
+  .footer-top ol li{
+    float:left;
+    width :31.6239%;
+    /* width: 36.756%; */
+  }
+
+  .latest-twits, .instagram-feed{
+    margin-left: 2.5641%;
+
+
+  }
+
+  .follow-links{
+    width: 100%;
+  }
+
+  .about-us,.lastest-twits, .instagram-feed{
+    padding:0;
+  }
+
+
+
+  .footer-top ol li:first-child{
+    margin-left: 0;
+  }
+
+  .latest-twits ul li{
+    float:none;
+    width:100%;
+  }
+  .latest-twits ul li i{
+    float:left;
+    width:10.8108%;
+  }
+
+  .latest-twits ul li p{
+    width:89.1891%;
+    padding-left: 10.8108%;
+    padding-bottom: 3.90625%;
+    text-align: left;
+  }
+
+  .footer-links ol li{
+      float:left;
+      width:18px;
+      color:white;
+  }
+  .footer-bottom {
+    margin: auto;
+  }
+
+  .footer-bottom p{
+    line-height:69px;
+  }
+
+  .navbar {
+    width: 100%;
+  }
+}
