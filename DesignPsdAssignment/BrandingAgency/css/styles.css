@@ -257,11 +257,11 @@ ul {
     font-family: "PlayfairDisplay";
     font-weight: bold;
     line-height: 1.2;
-    text-align: start;
+    text-align: left;
   }
 
   .blog-card-info p {
-    text-align: start;
+    text-align: left;
 
     font-size: 10px;
     font-family: "WorkSans";
@@ -270,7 +270,7 @@ ul {
   }
 
   .blog-card-info p:last-child {
-    text-align: start;
+    text-align: left;
     font-size: 12px;
     font-family: "WorkSans";
     color: rgb(95, 95, 95);
@@ -280,7 +280,7 @@ ul {
   .contact-info p,
   .contact-info ul {
     width: 84.8%;
-    text-align: start;
+    text-align: left;
   }
 
   .contact-form input {
@@ -320,6 +320,7 @@ ul {
     color: #252525;
     border:1px solid #252525;
     background-color: white;
+    cursor:pointer;
   }
 
   .contact-details li{
@@ -386,10 +387,12 @@ ul {
     font-size: 8px;
     color: white;
     margin: auto;
+    cursor:pointer;
   }
 
   .dropdown-container button:hover i {
     color: grey;
+
   }
 
   .grid-item-info {
@@ -462,13 +465,13 @@ ul {
 
   /* .agency-insights-item p {
     margin-left:76px;
-    text-align: start;
+    text-align: left;
     font-family: "WorkSans";
    
   } */
   .agency-insights-item p {
     font-size: 14px;
-    text-align: start;
+    text-align: left;
   }
   .agency-insights-item p:last-child {
     font-size: 10px;
@@ -518,7 +521,7 @@ ul {
   }
   .about-us p,
   .latest-twits li {
-    text-align: start;
+    text-align: left;
   }
   .about-us p{
   padding-bottom: 5.2083%;
@@ -530,6 +533,9 @@ ul {
   }
   .about-us ul li:first-child {
     margin-left: 0;
+    
   }
+
+
 
 }

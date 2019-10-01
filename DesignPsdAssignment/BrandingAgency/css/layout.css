@@ -148,10 +148,12 @@
 
 @media (min-width: 375px) {
 
+  .body{
+    background-color:#f6f6f6
+  }
   .header-wrapper {
     margin: auto;
     width: 100%;
-    /* width:23.4375em;     */
   }
 
   .header-container {
@@ -174,6 +176,7 @@
     margin: auto;
     width: 100%;
     background-color:#f6f6f6
+    
   }
   .body-container {
     margin: 0px 16px 0px 16px;
@@ -333,7 +336,7 @@
 /* tablet */
 @media (min-width: 768px) {
   body {
-    background-color: white;
+    background-color: #f6f6f6
   }
   .header-wrapper {
     margin: auto;
