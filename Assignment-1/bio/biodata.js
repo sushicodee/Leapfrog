@@ -14,3 +14,4 @@ var data = {
   programmer:true
 
 };
+console.log(data);
