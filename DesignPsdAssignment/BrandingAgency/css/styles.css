@@ -30,14 +30,16 @@ ul {
   text-transform: uppercase;
 }
 
+
 .header-info h1 {
   font-family: "PlayfairDisplay";
   color: white;
   font-weight: bold;
-  top: 348.762px;
-  z-index: 277;
   margin: auto;
 }
+
+ 
+
 
 /* grid info on hover */
 .grid-item-info {
@@ -82,10 +84,15 @@ ul {
 
 .toggle-container button {
   background-color: transparent;
-  color: white;
+  color: rgba(255, 255, 255, 0.849);
   border: none;
   outline: none;
   width: 20px;
+}
+
+.toggle-container button:hover{
+  color:white;
+  cursor:pointer;
 }
 
 .about-agency-info img {
@@ -165,12 +172,7 @@ ul {
     height: 10px;
     background-color: white;
   }
-  .testimonial-carousel-inner ol li:first-child {
-  }
-  .testimonial-carousel-inner ol li:last-child {
-  }
-  .testimonial-carousel-inner ol li:first-child + li {
-  }
+
   .clients-container {
     background-color: white;
   }
@@ -283,6 +285,7 @@ ul {
 
   .contact-form input {
     width: 95.2191%;
+    height:50px;
     outline: none;
     margin: 5px 0px;
     line-height: 30px;
@@ -292,6 +295,7 @@ ul {
   }
   .contact-form textarea {
     width: 95.2191%;
+    height:170px;
     line-height: 50px;
     padding: 0 12px;
     margin: 5px 0;
@@ -305,7 +309,7 @@ ul {
     margin: auto;
     color: white;
     background-color: #252525;
-    border: none;
+    border: 1px solid #252525 ;
     font-size: 14px;
     font-family: "WorkSans";
     text-transform: uppercase;
@@ -314,11 +318,16 @@ ul {
 
   .contact-form button:hover {
     color: #252525;
+    border:1px solid #252525;
     background-color: white;
   }
 
+  .contact-details li{
+    padding-bottom:10px;
+  }
+
   .instagram-feed img {
-    width: 22.9729%;
+    width: 22.9719%;
     margin-left: 1.2664%;
     /* margin-left: 2.7027%; */
     background-color: grey;
@@ -395,6 +404,9 @@ ul {
   .contact-form button {
     margin: unset;
   }
+  .contact-details li{
+    padding-bottom:14px;
+  }
 }
 
 /* desktop */
@@ -468,6 +480,11 @@ ul {
   }
 
   /* contacts */
+
+  .contact-form input , .contact-form textarea{
+    padding-top:5px;
+    padding-bottom:5px;
+  }
   .contact-form input:first-child {
     margin-right: 30px;
   }
@@ -481,6 +498,11 @@ ul {
 
   .contact-form button {
     width: 26.7857%;
+    display: inline;
+  }
+
+  .contact-details li{
+    padding-bottom:24px;
   }
 
   /* footer */
