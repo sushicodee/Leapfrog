@@ -2,11 +2,18 @@
   border-bottom:1px solid grey;
 }
 
+.blog-carousel-item-container{
+  overflow:hidden;
+}
+
+
 /* implemet after slider class */
 
 /* .blog-carousel-item-container{
   position:relative;
 }
+
+
 
 .blog-carousel-item-container ol{
   position: absolute;
