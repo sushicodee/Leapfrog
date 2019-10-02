@@ -153,7 +153,7 @@
 
 /* mobile */
 
-@media (min-width: 375px) {
+@media (min-width: 320px) {
 
   .body{
     background-color:#f6f6f6
