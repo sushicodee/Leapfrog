@@ -110,7 +110,7 @@ for (var i = 0; i < imageCount; i++) {
       }    
     //   left
       else if(temp < position) {
-        newMargin = newMargin - counter;
+        newMargin = newMargin + counter;
         counter = counter + 10;
         carouselWrapper.style.marginLeft = `${newMargin}px`;
 
