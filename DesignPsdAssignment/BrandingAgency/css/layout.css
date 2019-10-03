@@ -1,3 +1,6 @@
+
+/* common */
+
 .seperator{
   border-bottom:1px solid grey;
 }
@@ -150,6 +153,8 @@
   background-color: black;
   color: white;
 }
+
+/* common */
 
 /* mobile */
 
