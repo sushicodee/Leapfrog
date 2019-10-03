@@ -93,23 +93,25 @@ for (var i = 0; i < imageCount; i++) {
   li.style.width = '10px';
   li.style.height = '10px';
   li.style.borderRadius = '50%';
-  li.setAttribute('index', i);
   li.setAttribute('id',i);
   indicatorContainer.appendChild(li);
+
+
   li.style.float = 'left';
   li.onclick = function(e) {
     var margin = carouselWrapper.style.marginLeft;
     var temp = e.target.id;
-    console.log(temp);
     let counter = 0;
     let limit = `${IMAGE_OFFSET}`;
 
     const slide = setInterval(() => {
       let newMargin = parseInt(margin);
-      if(temp == position){         
-      }    
+      if(temp == position){ 
+          clearInterval(slide); 
+      }  
+      else{  
     //   left
-      else if(temp < position) {
+       if(temp < position) {
         newMargin = newMargin + counter;
         counter = counter + 10;
         carouselWrapper.style.marginLeft = `${newMargin}px`;
@@ -136,6 +138,7 @@ for (var i = 0; i < imageCount; i++) {
   
         }
       }
+    }
       // console.log('naw Margin is : ',newMargin);
       //   carouselWrapper.style.marginLeft = `${temp * 370 * -1}px`;
 
