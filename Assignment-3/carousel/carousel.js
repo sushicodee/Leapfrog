@@ -94,12 +94,13 @@ for (var i = 0; i < imageCount; i++) {
   li.style.height = '10px';
   li.style.borderRadius = '50%';
   li.setAttribute('index', i);
+  li.setAttribute('id',i);
   indicatorContainer.appendChild(li);
   li.style.float = 'left';
-  li.onclick = function() {
-    console.log('clicked');
+  li.onclick = function(e) {
     var margin = carouselWrapper.style.marginLeft;
-    var temp = li.getAttribute('index');
+    var temp = e.target.id;
+    console.log(temp);
     let counter = 0;
     let limit = `${IMAGE_OFFSET}`;
 
@@ -107,6 +108,7 @@ for (var i = 0; i < imageCount; i++) {
       let newMargin = parseInt(margin);
       if(temp == position){         
       }    
+    //   left
       else if(temp < position) {
         newMargin = newMargin - counter;
         counter = counter + 10;
@@ -114,11 +116,13 @@ for (var i = 0; i < imageCount; i++) {
 
         if (Math.abs(counter - 10) == limit*Math.abs(temp-position)) {
           clearInterval(slide);
-          // indicatorContainer.children[position].classList.remove('active');
-          // position = temp;
-          // indicatorContainer.children[position].classList.add('active');
+          indicatorContainer.children[position].classList.remove('active');
+          position = temp;
+          indicatorContainer.children[position].classList.add('active');
   
         }
+
+        // right
       } else {
         newMargin = newMargin + counter;
         counter = counter - 10;
@@ -126,9 +130,9 @@ for (var i = 0; i < imageCount; i++) {
 
         if (Math.abs(counter + 10) == limit*Math.abs(temp-position)) {
           clearInterval(slide);
-          // indicatorContainer.children[position].classList.remove('active');
-          // position = temp;
-          // indicatorContainer.children[position].classList.add('active');
+          indicatorContainer.children[position].classList.remove('active');
+          position = temp;
+          indicatorContainer.children[position].classList.add('active');
   
         }
       }
