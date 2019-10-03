@@ -262,3 +262,7 @@ buttonRight.onclick = function() {
      
         // animateforward();
 
+        document.getElementsByClassName('indicator').onclick = (e) => {
+            console.log('hello');
+        }
+
