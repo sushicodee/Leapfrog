@@ -80,6 +80,8 @@ carouselWrapper.children[i].style.float = 'left';
 
 // size of container holding images 
 carouselWrapper.style.width = `${carouselContainer.clientWidth*imageCount}px`;
+carouselWrapper.style.marginLeft = '0px';
+
 // create number of indicators 
 for(var i = 0; i < imageCount ;i++){
     var li = document.createElement('li');
@@ -91,11 +93,31 @@ for(var i = 0; i < imageCount ;i++){
     li.style.width = '10px';
     li.style.height = '10px';
     li.style.borderRadius = '50%';
+    li.setAttribute("ind", i);
     indicatorContainer.appendChild(li);
+    li.onclick = function() {
+        var margin = carouselWrapper.style.marginLeft;
+        var temp = li.getAttribute("ind");
+        let counter = 0;
+        let limit =`${IMAGE_OFFSET+20}`;
+
+        const slide = setInterval(() => {
+            let newMargin = parseInt(margin); 
+            newMargin = newMargin - counter;
+            counter = counter + 10;
+            // console.log('naw Margin is : ',newMargin);
+            carouselWrapper.style.marginLeft =`${temp * 370 * -1}px`;
+                
+                if (counter + 10 == limit ){
+                     clearInterval(slide);
+                }    
+            },FRAME_RATE);
+
+    }
     li.style.float = 'left';
 }
 buttonLeft.disabled = true;
-carouselWrapper.style.marginLeft = '0px';
+
 var position = 0;
 var FPS = 60;
 var FRAME_RATE = 1000/FPS;
