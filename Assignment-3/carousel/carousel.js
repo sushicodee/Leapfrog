@@ -249,16 +249,16 @@ buttonRight.onclick = function() {
                          clearInterval(slide);
                     }   
                     else{
-                        // if(counter + limit == MAXIMIUM_OFFSET){
-                        //     clearInterval(animationbackward);
-                        //     setTimeout(() =>{
-                        //         animateforward();
-                        //     },1000);
-                        // }
+                        if(counter + limit == MAXIMIUM_OFFSET){
+                            clearInterval(animationbackward);
+                            setTimeout(() =>{
+                                animateforward();
+                            },1000);
+                        }
                     }      
                 },FRAME_RATE);
         },1000)
         };
      
-        animateforward();
+        // animateforward();
 
