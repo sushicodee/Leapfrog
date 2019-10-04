@@ -112,7 +112,6 @@
 
                             // console.log(event.target.classList.contains('active'));
                             this.startAnimation(event,margin,temp,position,counter);
-                            this.setPosition(carouselWrapper,temp);
                       })
                  }
             }
@@ -166,8 +165,8 @@
     
             
         
-                if (Math.abs(this.counter - 10) == limit*Math.abs(this.temp-this.position)) {
-                  clearInterval(slide);
+                if (Math.abs(this.counter - 10) == this.limit*Math.abs(this.temp-this.position)) {
+                  this.clearAnimation();
                 //   indicatorContainer.children[position].classList.remove('active');
                   event.target.classList.remove('active');
                   this.setPosition(event.parentElement.parentElement,temp);
@@ -190,8 +189,8 @@
                 // carouselWrapper.style.marginLeft = `${newMargin}px`;
                 this.margin = `${newMargin}px`;
         
-                if (Math.abs(counter + 10) == this.limit*Math.abs(this.temp- this.position)) {
-                  clearInterval(slide);
+                if (Math.abs(this.counter + 10) == this.limit*Math.abs(this.temp- this.position)) {
+                  this.clearAnimation();
                 //   indicatorContainer.children[position].classList.remove('active');
                     event.target.classList.remove('active');
 
