@@ -288,6 +288,4 @@ function animateback() {
 
 // animateforward();
 
-document.getElementsByClassName('indicator').onclick = e => {
-  console.log('hello');
-};
+

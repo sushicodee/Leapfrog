@@ -1,0 +1,23 @@
+.carousel-container{
+    height: 750px;
+}
+
+.carousel-wrapper-0{
+    top:0;
+    left:0;
+}
+.carousel-wrapper-1{
+    top:250px;
+    left:0;
+}
+.carousel-wrapper-2{
+    bottom:0;
+    left:0;
+   
+}
+.carousel-container{
+    overflow:hidden;
+    width:370px;
+    margin:auto;
+}
+
