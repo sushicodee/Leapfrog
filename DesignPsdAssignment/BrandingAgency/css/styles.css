@@ -38,6 +38,25 @@ ul {
   margin: auto;
 }
 
+.toggle-container li a{
+  display: block;
+  padding:10px 20px 10px 20px;
+  color:black;
+  
+}
+.toggle-container a:hover{
+  color:white;
+  background-color: #252525;
+}
+
+.toggle-container-open button{
+  color:black;
+  width:20px;
+  height:20px;
+}
+
+
+
  
 
 
@@ -84,7 +103,7 @@ ul {
 
 .toggle-container button {
   background-color: transparent;
-  color: rgba(255, 255, 255, 0.849);
+  /* color: rgba(255, 255, 255, 0.849); */
   border: none;
   outline: none;
   width: 20px;
@@ -239,7 +258,7 @@ ul {
   .blog-carousel-item-container ol li:first-child {
     margin-left: 0px;
   }
-  .blog-carousel-item-container ol .active {
+  .carousel-container1 ul .active {
     margin-top: 0px;
     width: 10px;
     height: 10px;

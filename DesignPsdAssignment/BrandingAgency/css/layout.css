@@ -1,6 +1,25 @@
 
 /* common */
 
+.toggle-container-open, .toggle-container-close{
+  padding-top:38px;
+  width: 200px;
+  height: 100vh;
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: white;
+  z-index: 10;
+}
+
+
+.toggle-container ul li a{
+  list-style-type: none;
+  text-decoration: none;
+  font-size:1em;
+}
+
+
 .seperator{
   border-bottom:1px solid grey;
 }
@@ -26,13 +45,13 @@
 .blog-carousel-item-container .blog-card-container:first-child {
   display: none;
 } */
-.blog-carousel-item-container .blog-card-container:first-child + div + div {
+/* .blog-carousel-item-container .blog-card-container:first-child + div + div {
   display: none;
 }
 
 .blog-carousel-item-container .blog-card-container:first-child + div {
   display: none;
-}
+} */
 
 
 /* .testimonial-carousel-inner .testimonial-carousel-item:first-child{
@@ -71,7 +90,7 @@
 }
 
 .toggle-container {
-  padding-top: 6px;
+  padding-top: 38px;
   /* width:1.7094%; */
   float: right;
 }
@@ -140,8 +159,8 @@
 
 /* blog card single item */
 .blog-card-item {
-  /* width: 31.6239%; */
-  width:33.333%;
+  width: 31.6239%;
+  /* width:33.333%; */
   float: left;
 }
 

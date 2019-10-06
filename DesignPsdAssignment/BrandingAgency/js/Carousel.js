@@ -31,7 +31,7 @@ indicatorContainer.style.bottom = "0px";
 indicatorContainer.setAttribute("class", "indicator-container");
 
 carouselContainer.appendChild(indicatorContainer);
-indicatorContainer.style.left = `${770 * 0.5}px`;
+indicatorContainer.style.left = `${carouselContainer.clientWidth * 0.5}px`;
 
 var imageCount = carouselWrapper.childElementCount;
 
@@ -49,6 +49,8 @@ var FRAME_RATE = 1000 / FPS;
 var IMAGE_OFFSET = carouselContainer.clientWidth;
 var TOTAL_IMAGES = carouselWrapper.children.length - 1;
 const MAXIMUM_OFFSET = carouselWrapper.clientWidth;
+var isMoving = false;
+var runningAnimation = '';
 // create number of indicators
 for (var i = 0; i < imageCount; i++) {
   var li = document.createElement("li");
@@ -57,59 +59,74 @@ for (var i = 0; i < imageCount; i++) {
   if (i == 0) {
     li.classList.add("active");
   }
-  li.style.width = "5px";
-  li.style.height = "5px";
+  if(i!=0){
+      li.style.marginLeft = '2.5px';
+  }
+//   li.style.width = "5px";
+//   li.style.height = "5px";
+
   li.style.borderRadius = "50%";
   li.setAttribute("id", i);
   indicatorContainer.appendChild(li);
-
   li.style.float = "left";
   li.onclick = function(e) {
     var margin = carouselWrapper.style.marginLeft;
     var temp = e.target.id;
     let counter = 0;
     let limit = `${IMAGE_OFFSET}`;
-
-    const slide = setInterval(() => {
-      let newMargin = parseInt(margin);
-      if (temp == position) {
-        clearInterval(slide);
-      } else {
-        //   left
-        if (temp < position) {
-          newMargin = newMargin + counter;
-          counter = counter + 10;
-          carouselWrapper.style.marginLeft = `${newMargin}px`;
-
-          if (Math.abs(counter - 10) == limit * Math.abs(temp - position)) {
+    if(isMoving = false){
+        //get current animation name
+        let animation = runningAnimation;
+        (animation == 'animateF')? clearInterval(animation) : clearInterval('animateB');
+        //execute click animation
+        const slide = setInterval(() => {
+          let newMargin = parseInt(margin);
+          if (temp == position) {
             clearInterval(slide);
-            indicatorContainer.children[position].classList.remove("active");
-            position = temp;
-            indicatorContainer.children[position].classList.add("active");
+          } else {
+            //   left
+            if (temp < position) {
+              newMargin = newMargin + counter;
+              counter = counter + 10;
+              carouselWrapper.style.marginLeft = `${newMargin}px`;
+    
+              if (Math.abs(counter - 10) == limit * Math.abs(temp - position)) {
+                clearInterval(slide);
+                indicatorContainer.children[position].classList.remove("active");
+                position = temp;
+                indicatorContainer.children[position].classList.add("active");
+              }
+    
+              // right
+            } else {
+              newMargin = newMargin + counter;
+              counter = counter - 10;
+              carouselWrapper.style.marginLeft = `${newMargin}px`;
+    
+              if (Math.abs(counter + 10) == limit * Math.abs(temp - position)) {
+                clearInterval(slide);
+                indicatorContainer.children[position].classList.remove("active");
+                position = temp;
+                indicatorContainer.children[position].classList.add("active");
+              }
+            }
           }
+          // console.log('naw Margin is : ',newMargin);
+          //   carouselWrapper.style.marginLeft = `${temp * 370 * -1}px`;
+        }, FRAME_RATE);
 
-          // right
-        } else {
-          newMargin = newMargin + counter;
-          counter = counter - 10;
-          carouselWrapper.style.marginLeft = `${newMargin}px`;
 
-          if (Math.abs(counter + 10) == limit * Math.abs(temp - position)) {
-            clearInterval(slide);
-            indicatorContainer.children[position].classList.remove("active");
-            position = temp;
-            indicatorContainer.children[position].classList.add("active");
-          }
-        }
-      }
-      // console.log('naw Margin is : ',newMargin);
-      //   carouselWrapper.style.marginLeft = `${temp * 370 * -1}px`;
-    }, FRAME_RATE);
+
+        //replug animation
+        (animation == 'animateF') ? animateforward() : animateback();    }
   };
 }
 
 function animateforward() {
-    const animate = setInterval(() => {
+    runningAnimation = 'animateF';
+    isMoving = false;
+    const animateF = setInterval(() => {
+
         for (let i = 0; i < indicatorContainer.childElementCount; i++) {
             if (indicatorContainer.children[i].classList.contains("active")) {
                 var t = i;
@@ -123,10 +140,10 @@ function animateforward() {
     var MAXIMIUM = carouselWrapper.clientWidth - limit;
     temp++;
     const slide = setInterval(() => {
+      isMoving = true;
       let newMargin = parseInt(margin);
       if (position === indicatorContainer.childElementCount - 1) {
-        // temp = 0;
-        clearInterval(animate);
+        clearInterval(animateF);
 
       } else {
         if (temp > position) {
@@ -136,14 +153,17 @@ function animateforward() {
 
           if (Math.abs(newMargin - 10) > MAXIMIUM) {
             //max right
+            isMoving = false;
+
             clearInterval(slide);
-            clearInterval(animate);
+            clearInterval(animateF);
             animateback();
          
           }
 
           if (Math.abs(counter + 10) === limit * Math.abs(temp - position)) {
-            clearInterval(slide);
+              clearInterval(slide);
+              isMoving = false;
             indicatorContainer.children[position].classList.remove("active");
             position = temp;
             indicatorContainer.children[position].classList.add("active");
@@ -156,14 +176,16 @@ function animateforward() {
 }
 
 function animateback() {
+    runningAnimation = 'animateB';
 
-  const animate = setInterval(() => {
+
+  const animateB = setInterval(() => {
+      isMoving = false;
     for (let i = 0; i < indicatorContainer.childElementCount; i++) {
       if (indicatorContainer.children[i].classList.contains("active")) {
         var t = i;
       }
     }
-    // slide animation
     let temp = t;
     var margin = carouselWrapper.style.marginLeft;
     let counter = 0;
@@ -171,13 +193,16 @@ function animateback() {
     var MINIMUM = 0;
     temp--;
     const slide = setInterval(() => {
+      isMoving = true;
+
       let newMargin = parseInt(margin);
-      if (position === 0) {
-        carouselWrapper.style.marginLeft = 0
-        clearInterval(slide);
-        clearInterval(animate);
-        animateforward();
-      } else {
+    //   if (position === 0) {
+        // carouselWrapper.style.marginLeft = 0
+        // clearInterval(slide);
+        // clearInterval(animateB);
+        // isMoving = false;
+        // animateforward();
+    //   } else {
         if (temp < position) {
             newMargin = newMargin + counter;
             counter = counter + 10;
@@ -185,8 +210,10 @@ function animateback() {
             if ((newMargin + 10) > 0) {
                 
               clearInterval(slide);
-              clearInterval(animateback);
+              clearInterval(animateB);
+              isMoving = false;
               animateforward();
+
  
             }
   
@@ -198,7 +225,7 @@ function animateback() {
               indicatorContainer.children[position].classList.add("active");
             }
 
-        }
+        // }
       }
     }, FRAME_RATE);
   }, 4000);
