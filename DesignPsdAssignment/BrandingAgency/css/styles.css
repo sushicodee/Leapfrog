@@ -166,7 +166,7 @@ ul {
   .testimonial-carousel-inner ol li:first-child {
     margin-left: 0px;
   }
-  .testimonial-carousel-inner ol .active {
+  .carousel-container ul .active {
     margin-top: 0px;
     width: 10px;
     height: 10px;

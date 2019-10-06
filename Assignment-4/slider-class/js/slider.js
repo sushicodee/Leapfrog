@@ -104,14 +104,14 @@
 
                             console.log(event.target.parentElement.parentElement);
                             console.log('position',position);
-                            let counter = 0;
+                            // let counter = 0;
                             let temp = event.target.id;
                             
                             position = this.getPositon(carouselWrapper);
                             console.log('position',position);
 
                             // console.log(event.target.classList.contains('active'));
-                            this.startAnimation(event,margin,temp,position,counter);
+                            this.startAnimation(event,margin,temp,position);
                       })
                  }
             }
@@ -127,12 +127,11 @@
                 clearInterval(this.slide); 
             }
 
-            this.startAnimation = function (event,margin ,temp,position,counter) {
+            this.startAnimation = function (event,margin ,temp,position) {
                 
-                this.counter = counter;
-                this.event = event;
+                this.counter = 0;
                 this.slide = setInterval(() => {
-                console.log(counter);
+                console.log(this.counter);
 
                     let newMargin = parseInt(margin);
                     if(temp == position){ 
@@ -140,10 +139,10 @@
                     }
                     else{
                         if(temp < position){
-                        this.handleLeft(event,newMargin,position,temp,margin,counter);
+                        this.handleLeft(event,newMargin,position,temp,margin,this.counter);
                         }
                         else{
-                        this.handleRight(event,newMargin,position,temp,margin,counter);
+                        this.handleRight(event,newMargin,position,temp,margin,this.counter);
                         }
                     }
 
@@ -162,7 +161,9 @@
                 this.newMargin = this.newMargin + this.counter;
                 this.counter = this.counter + 10;
                 this.margin = `${newMargin}px`;
-    
+                console.log(this.counter,'counter left');
+
+
             
         
                 if (Math.abs(this.counter - 10) == this.limit*Math.abs(this.temp-this.position)) {
@@ -182,14 +183,17 @@
                 this.margin = margin;
                 this.position = position;
                 this.temp = temp;
+                this.counter = counter;
                 this.newMargin = newMargin;
-                this.counter = counter
                 this.newMargin = this.newMargin + this.counter;
                 this.counter = this.counter - 10;
+                console.log(this.margin);
+                console.log(this.counter,'counter right');
                 // carouselWrapper.style.marginLeft = `${newMargin}px`;
                 this.margin = `${newMargin}px`;
-        
+
                 if (Math.abs(this.counter + 10) == this.limit*Math.abs(this.temp- this.position)) {
+              
                   this.clearAnimation();
                 //   indicatorContainer.children[position].classList.remove('active');
                     event.target.classList.remove('active');
