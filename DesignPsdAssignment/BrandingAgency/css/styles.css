@@ -30,7 +30,6 @@ ul {
   text-transform: uppercase;
 }
 
-
 .header-info h1 {
   font-family: "PlayfairDisplay";
   color: white;
@@ -38,27 +37,26 @@ ul {
   margin: auto;
 }
 
-.toggle-container li a{
+.toggle-container li a {
   display: block;
-  padding:10px 20px 10px 20px;
-  color:black;
-  
+  padding: 10px 20px 10px 20px;
+  color: black;
 }
-.toggle-container a:hover{
-  color:white;
+.toggle-container a:hover {
+  color: white;
   background-color: #252525;
 }
 
-.toggle-container-open button{
-  color:black;
-  width:20px;
-  height:20px;
+.toggle-container-open button {
+  color: black;
+  width: 20px;
+  height: 20px;
 }
 
-
-
- 
-
+.toggle-container-open button,
+.toggle-container-close button {
+  padding-left: 20px;
+}
 
 /* grid info on hover */
 .grid-item-info {
@@ -109,9 +107,9 @@ ul {
   width: 20px;
 }
 
-.toggle-container button:hover{
-  color:white;
-  cursor:pointer;
+.toggle-container button:hover {
+  color: white;
+  cursor: pointer;
 }
 
 .about-agency-info img {
@@ -122,7 +120,6 @@ ul {
 
 /* mobile */
 @media (min-width: 375px) {
-
   .header-info p {
     /* text-align: center; */
     font-size: 10px;
@@ -135,10 +132,10 @@ ul {
     margin: auto;
   }
 
-  .header-overlay .banner{
+  .header-overlay .banner {
     display: none;
   }
-  .navbar{
+  .navbar {
     padding: 20px 20px 0px 20px;
   }
   /* .image-item-small .grid-item-info{
@@ -150,7 +147,6 @@ ul {
     top:unset;
     bottom:0;
   } */
-
 
   .agency-insights-item img {
     display: block;
@@ -198,11 +194,8 @@ ul {
   .clients-container ol li {
     width: 33%;
     padding-top: 26px;
-
   }
-  /* .clients-container ol li img{
-    width: 100%;
-  } */
+
 
   .blog-banner img {
     width: 100%;
@@ -264,12 +257,10 @@ ul {
     height: 10px;
     background-color: black;
   }
-  
-  
 
   .blog-card-info {
     padding: 5px 10px 12px 10px;
-}
+  }
 
   .blog-card-info h2 {
     font-size: 18px;
@@ -304,7 +295,7 @@ ul {
 
   .contact-form input {
     width: 95.2191%;
-    height:50px;
+    height: 50px;
     outline: none;
     margin: 5px 0px;
     line-height: 30px;
@@ -314,7 +305,7 @@ ul {
   }
   .contact-form textarea {
     width: 95.2191%;
-    height:170px;
+    height: 170px;
     line-height: 50px;
     padding: 0 12px;
     margin: 5px 0;
@@ -328,7 +319,7 @@ ul {
     margin: auto;
     color: white;
     background-color: #252525;
-    border: 1px solid #252525 ;
+    border: 1px solid #252525;
     font-size: 14px;
     font-family: "WorkSans";
     text-transform: uppercase;
@@ -337,13 +328,13 @@ ul {
 
   .contact-form button:hover {
     color: #252525;
-    border:1px solid #252525;
+    border: 1px solid #252525;
     background-color: white;
-    cursor:pointer;
+    cursor: pointer;
   }
 
-  .contact-details li{
-    padding-bottom:10px;
+  .contact-details li {
+    padding-bottom: 10px;
   }
 
   .instagram-feed img {
@@ -364,7 +355,7 @@ ul {
 
 /* tablet */
 @media (min-width: 768px) {
-  .header-overlay .banner{
+  .header-overlay .banner {
     display: block;
   }
 
@@ -406,12 +397,11 @@ ul {
     font-size: 8px;
     color: white;
     margin: auto;
-    cursor:pointer;
+    cursor: pointer;
   }
 
   .dropdown-container button:hover i {
     color: grey;
-
   }
 
   .grid-item-info {
@@ -419,15 +409,15 @@ ul {
   }
 
   .clients-container ol li {
-    float:left;
+    float: left;
     width: 21%;
     padding-top: 0;
   }
   .contact-form button {
     margin: unset;
   }
-  .contact-details li{
-    padding-bottom:14px;
+  .contact-details li {
+    padding-bottom: 14px;
   }
 }
 
@@ -503,9 +493,10 @@ ul {
 
   /* contacts */
 
-  .contact-form input , .contact-form textarea{
-    padding-top:5px;
-    padding-bottom:5px;
+  .contact-form input,
+  .contact-form textarea {
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
   .contact-form input:first-child {
     margin-right: 30px;
@@ -523,8 +514,8 @@ ul {
     display: inline;
   }
 
-  .contact-details li{
-    padding-bottom:24px;
+  .contact-details li {
+    padding-bottom: 24px;
   }
 
   /* footer */
@@ -542,9 +533,9 @@ ul {
   .latest-twits li {
     text-align: left;
   }
-  .about-us p{
-  padding-bottom: 5.2083%;
-}
+  .about-us p {
+    padding-bottom: 5.2083%;
+  }
   .about-us ul li {
     float: left;
     width: 4.8648%;
@@ -552,9 +543,5 @@ ul {
   }
   .about-us ul li:first-child {
     margin-left: 0;
-    
   }
-
-
-
 }

@@ -50,7 +50,6 @@ var FRAME_RATE1 = 1000 / FPS1;
 var IMAGE_OFFSET1 = outerContainer1.clientWidth;
 var TOTAL_IMAGES1 = carouselWrapper1.children.length - 1;
 const MAX_OFFSET1 = carouselWrapper1.clientWidth;
-console.log(IMAGE_OFFSET1,MAX_OFFSET1);
 var isMoving1 = false;
 var runningAnimation1 = "";
 // create number of indicators
@@ -91,13 +90,15 @@ for (var i = 0; i < imageCount1; i++) {
           //   left
           if (temp1 < position1) {
             newMargin1 = newMargin1 + counter1;
-            counter1 = counter1 + 10;
+            counter1 = counter1 + 1;
             carouselWrapper1.style.marginLeft = `${newMargin1}px`;
-
+            console.log(counter1);
+            
             if (
-              Math.abs(counter1 - 10) ==
+              Math.abs(counter1 + 1) ==
               limit1 * Math.abs(temp1 - position1)
             ) {
+                console.log(counter1);
               clearInterval(slide1);
               indicatorContainer1.children[position1].classList.remove(
                 "active"
@@ -109,17 +110,13 @@ for (var i = 0; i < imageCount1; i++) {
             // right
           } else {
             newMargin1 = newMargin1 + counter1;
-            counter1 = counter1 - 10;
+            counter1 = counter1 - 1;
             carouselWrapper1.style.marginLeft = `${newMargin1}px`;
 
             if (
-              Math.abs(counter1 + 10) ==
-              limit1 * Math.abs(temp1 - position1)
-            ) {
+              Math.abs(counter1 + 1) == limit1 * Math.abs(temp1 - position1)) {
               clearInterval(slide1);
-              indicatorContainer1.children[position1].classList.remove(
-                "active"
-              );
+              indicatorContainer1.children[position1].classList.remove("active");
               position1 = temp1;
               indicatorContainer1.children[position1].classList.add("active");
             }
@@ -149,7 +146,8 @@ function animateforward1() {
     let temp1 = t1;
     let counter1 = 0;
     // console.log(IMAGE_OFFSET1);
-    let limit1 = `${871}`;
+    let limit1 = `${carouselContainer1.clientWidth}`;
+    console.log(limit1);
     var MAXIMIUM1 = carouselWrapper1.clientWidth - limit1;
     temp1++;
     const slide1 = setInterval(() => {
@@ -159,11 +157,12 @@ function animateforward1() {
         clearInterval(animateF1);
       } else {
         if (temp1 > position1) {
-          newMargin1 = newMargin1 + counter1;
-          counter1 = counter1 - 10;
+            newMargin1 = newMargin1 + counter1;
+          counter1 = counter1 - 1;
           carouselWrapper1.style.marginLeft = `${newMargin1}px`;
+         
+          if (Math.abs(newMargin1 - 1) > MAXIMIUM1) {
 
-          if (Math.abs(newMargin1 - 10) > MAXIMIUM1) {
             //max right
             isMoving1 = false;
 
@@ -173,7 +172,9 @@ function animateforward1() {
           }
 
           if (
-            Math.abs(counter1 + 10) === limit1 * Math.abs(temp1 - position1)) {
+            Math.abs(counter1 + 1) === limit1 * Math.abs(temp1 - position1)) {
+                console.log('here')
+                console.log('counter1');
             clearInterval(slide1);
             isMoving1 = false;
             indicatorContainer1.children[position1].classList.remove("active");
@@ -184,7 +185,7 @@ function animateforward1() {
         }
       }
     }, FRAME_RATE1);
-  }, 6000);
+  }, 1000);
 }
 
 function animateback1() {
@@ -201,6 +202,7 @@ function animateback1() {
     var margin1 = carouselWrapper1.style.marginLeft;
     let counter1 = 0;
     let limit1 = `${IMAGE_OFFSET1}`;
+    console.log(limit1);
     var MINIMUM = 0;
     temp1--;
     const slide1 = setInterval(() => {
@@ -209,18 +211,18 @@ function animateback1() {
       let newMargin1 = parseInt(margin1);
 
       if (temp1 < position1) {
-        newMargin1 = newMargin1 + counter1;
-        counter1 = counter1 + 10;
+          newMargin1 = newMargin1 + counter1;
+          counter1 = counter1 + 1;
+
         carouselWrapper1.style.marginLeft = `${newMargin1}px`;
-        if (newMargin1 + 10 > 0) {
+        if (newMargin1 + 1 > 0) {
           clearInterval(slide1);
           clearInterval(animateB1);
           isMoving1 = false;
           animateforward1();
         }
-
-        if (Math.abs(counter1 - 10) === limit1 * Math.abs(temp1 - position1)) {
-          // console.log('clearing interval');
+        //--
+        if (Math.abs(counter1 - 1) === limit1 * Math.abs(temp1 - position1)) {
           clearInterval(slide1);
           indicatorContainer1.children[position1].classList.remove("active");
           position1 = temp1;
@@ -229,7 +231,7 @@ function animateback1() {
 
         // }
       }
-    }, FRAME_RATE1);
+    }, FRAME_RATE1 );
   }, 1000);
 }
 

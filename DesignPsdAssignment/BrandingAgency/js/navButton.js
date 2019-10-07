@@ -2,6 +2,8 @@ var navButtonSlide = document.getElementsByClassName('toggle-container')[1];
 navButtonSlide.style.marginRight = `-${200}px`;
 document.getElementsByClassName('toggle-container')[0].children[0].style.color = 'white';
 
+
+
 function togglehandler() {
     toggle = !toggle;
     toggle? navButtonSlide.classList.add('toggle-container-open') : navButtonSlide.classList.add('toggle-container-close');
@@ -29,7 +31,6 @@ function togglehandler() {
     }
     else{
         //close
-        console.log('closing');
         const closeNav = setInterval (() => {
             counter = counter + 10;
             marginR =   marginR + counter;
@@ -46,9 +47,6 @@ function togglehandler() {
 var navButton = document.getElementsByClassName('navbar-toggle');
 var toggle = false;
 navButton[0].onclick = (e) => {
-    // toggle = !toggle;
-    // toggle? navButtonSlide.classList.add('toggle-container-open') : navButtonSlide.classList.add('toggle-container-close');
-    // !toggle? navButtonSlide.classList.remove('toggle-container-open'): navButtonSlide.classList.remove('toggle-container-close');
     togglehandler();
 }
 
@@ -62,3 +60,9 @@ navButtonSlide.children[0].onclick = (e) => {
 }
 
 
+//dropdown button
+var contactElement = document.querySelector('.contact-container');
+
+var dropDownElement = document.getElementsByClassName('dropdown-container')[0].children[0].onclick = (() => {
+ contactElement.scrollIntoView();
+})
