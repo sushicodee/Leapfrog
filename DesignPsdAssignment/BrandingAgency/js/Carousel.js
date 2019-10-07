@@ -7,7 +7,13 @@ var carouselWrapper = document.getElementsByClassName("carousel-wrapper")[0];
 carouselContainer.classList.add("clearfix");
 
 carouselContainer.style.position = "relative";
-carouselContainer.style.width = "770px";
+if (carouselContainer.parentElement.clientWidth < 375){
+    carouselContainer.style.width = "370px";
+
+}else{
+    carouselContainer.style.width = "770px";
+
+}
 carouselContainer.style.height = "430px";
 carouselContainer.style.margin = "auto";
 carouselContainer.style.overflow = "hidden";
@@ -37,6 +43,8 @@ var imageCount = carouselWrapper.childElementCount;
 
 for (var i = 0; i < imageCount; i++) {
   carouselWrapper.children[i].style.float = "left";
+  carouselWrapper.children[i].style.width = `${carouselContainer.clientWidth}px`;
+
 }
 
 // size of container holding images

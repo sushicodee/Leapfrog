@@ -208,6 +208,10 @@
     width: 23.4375em;
     margin: auto;
   }
+  
+  .latest-blog-container{
+    display:none;
+  }
 
 
   .header-info {
@@ -291,7 +295,8 @@
 
     
   .testimonial-carousel-item p{
-      width:770px;
+      /* width:770px; */
+      width: 100%;
       margin:auto;
   }
 
@@ -417,6 +422,10 @@
   .contact-container, .footer-top{
     width: 43.75em;
     margin: auto;
+  }
+
+  .latest-blog-container{
+    display:none;
   }
 
   .best-projects-info {
@@ -589,6 +598,10 @@
     /* width: 64em; */
     width: 54.8169em;
     margin: auto;
+  }
+
+  .latest-blog-container{
+    display:block;
   }
 
   .about-agency-info {

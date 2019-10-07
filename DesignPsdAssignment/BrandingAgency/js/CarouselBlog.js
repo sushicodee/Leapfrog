@@ -42,6 +42,10 @@ for (var i = 0; i < imageCount1; i++) {
 // size of container holding images
 carouselWrapper1.style.width = `${carouselContainer1.clientWidth *
   imageCount1}px`;
+  for(let j = 0; j< carouselWrapper1.children.length ; j ++){
+      
+      carouselWrapper1.children[j].style.width = `${carouselWrapper1.children[0].clientWidth/carouselContainer1.clientWidth * 100 / 3}%`;
+  }
 carouselWrapper1.style.marginLeft = "0px";
 
 var position1 = 0;
