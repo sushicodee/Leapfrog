@@ -96,13 +96,11 @@ for (var i = 0; i < imageCount1; i++) {
             newMargin1 = newMargin1 + counter1;
             counter1 = counter1 + 1;
             carouselWrapper1.style.marginLeft = `${newMargin1}px`;
-            console.log(counter1);
             
             if (
               Math.abs(counter1 + 1) ==
               limit1 * Math.abs(temp1 - position1)
             ) {
-                console.log(counter1);
               clearInterval(slide1);
               indicatorContainer1.children[position1].classList.remove(
                 "active"
@@ -151,7 +149,6 @@ function animateforward1() {
     let counter1 = 0;
     // console.log(IMAGE_OFFSET1);
     let limit1 = `${carouselContainer1.clientWidth}`;
-    console.log(limit1);
     var MAXIMIUM1 = carouselWrapper1.clientWidth - limit1;
     temp1++;
     const slide1 = setInterval(() => {
@@ -177,8 +174,6 @@ function animateforward1() {
 
           if (
             Math.abs(counter1 + 1) === limit1 * Math.abs(temp1 - position1)) {
-                console.log('here')
-                console.log('counter1');
             clearInterval(slide1);
             isMoving1 = false;
             indicatorContainer1.children[position1].classList.remove("active");
@@ -206,7 +201,6 @@ function animateback1() {
     var margin1 = carouselWrapper1.style.marginLeft;
     let counter1 = 0;
     let limit1 = `${IMAGE_OFFSET1}`;
-    console.log(limit1);
     var MINIMUM = 0;
     temp1--;
     const slide1 = setInterval(() => {

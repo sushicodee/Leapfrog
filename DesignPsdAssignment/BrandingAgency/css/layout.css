@@ -213,6 +213,10 @@
     display:none;
   }
 
+  .testimonial-container{
+    display:none;
+  }
+
 
   .header-info {
     padding: 10px;
@@ -306,8 +310,12 @@
 
   }
   .clients-container{
-    float:left;
-    width:20%;
+    /* float:left; */
+    width:100%;
+  }
+
+  .clients-container li {
+    margin:auto;
   }
   .blog-carousel-container{
     margin-top: 18px;
@@ -422,6 +430,10 @@
   .contact-container, .footer-top{
     width: 43.75em;
     margin: auto;
+  }
+
+  .testimonial-container{
+    display:block;
   }
 
   .latest-blog-container{
