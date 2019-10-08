@@ -81,8 +81,7 @@
     };
   
     maingameloop = function (antsArray) {
-      this.pop = 1
-      for (let i = 0 ; i <= antsArray.length - this.pop;  i++) {
+      
         //inititialization
 
         // antsArray[i].draw();
@@ -90,32 +89,32 @@
 
         //gameloop
         if (this.isplaying) {
-          console.log(this.score);
+          for (let i = 0; i< antsArray.length;  i++) {
+       
           let gameloop = setInterval(() => {
             antsArray[i].move();
             antsArray[i].update(antsArray);
 
-            for (let j = 0; j < antsArray.length; j++) {
-              if (antsArray[j].isSquashed) {
-                this.score++;
-                antsArray.splice(j, 1);
-                this.isplaying = false ;
-                this.pop --;
-                break;
-                
+              if (antsArray[i].isSquashed) {
+                this.score++;                             
+                clearInterval(gameloop);           
               }
-            }
-            if(!this.isplaying) {
-                clearInterval(gameloop);
-                this.playing = true;
-                this.maingameloop(antsArray);
-            }
-          }, this.FRAME_RATE);
-        } else {
+              
+            }  
+        , this.FRAME_RATE);
+
+        if(antsArray[i].isSquashed ){
+          antsArray.splice(i, 1);
+          this.domSmashAnt(i);
+         break;
+        }  
+        }
+      }else {
           //gameover
+          // this.maingameloop(antsArray);
         }
       }
-    }
+    
 
     // create instances of Ants
     createAnts = function() {
@@ -169,39 +168,8 @@
 
       this.maingameloop(antsArray);
 
-      // for (let i = antsArray.length - 1; i >= 0; i--) {
-      //   //inititialization
-
-      //   // antsArray[i].draw();
-      //   // antsArray[i].checkifSmashed();
-
-      //   //gameloop
-      //   if (this.isplaying) {
-      //     console.log(this.score);
-      //     this.gameloop = setInterval(() => {
-      //       antsArray[i].move();
-      //       antsArray[i].update(antsArray);
-
-      //       for (let j = 0; j < antsArray.length; j++) {
-      //         if (antsArray[j].isSquashed) {
-      //           this.score++;
-      //           antsArray.splice(j, 1);
-      //           break;
-      //         }
-      //       }
-
-      //       // }
-      //       // if (antsArray[i].isSquashed){
-      //       //   this.score++;
-      //       //   antsArray.splice(i,1);
-      //       // }
-      //     }, this.FRAME_RATE);
-      //   } else {
-      //     //gameover
-      //   }
-      
+    
       }
-    // };
   }
   // Ant childrens
   class Ant {
@@ -214,8 +182,7 @@
       this.color = color;
       this.dx = 2;
       this.dy = 2;
-      // this.directions = ["n", "e", "s", "w", "ne", "se", "nw", "sw"];
-      this.directions = ['ne'];
+      this.directions = ["n", "e", "s", "w", "ne", "se", "nw", "sw"];
 
       //ant properties
       this.antDirection = "";
@@ -238,13 +205,29 @@
       this.element.style.height = `${diameter}px`;
       this.element.style.borderRadius = "50%";
       this.element.style.backgroundColor = `${antColor}`;
-      this.element.addEventListener("click", e => this.smashBug(e));
+      this.element.addEventListener("click", e => this.smashBug(e, this.parentElem , this.element));
     };
     //dom
     draw = function() {
       this.element.style.top = this.y + "px";
       this.element.style.left = this.x + "px";
     };
+
+    domSmashAnt = function (id, parentELem, element){
+      // let parentElem = document.getElementsByClassName('antsmasher-wrapper');
+      // let childtoRemove = parentElem.children[id];
+      // console.log(parentELem,element)      
+      // parentElem.removeChild(childtoRemove);
+
+      // this.parentELem.removeChild(this.parentELem.children[id]);
+      // this.parentELem.children[id].remove();
+      // this.parentELem.removeChild(this.element);
+      let elementToRemove = document.getElementById(`${id}`)
+      element.parentNode.removeChild(element);  
+     
+      
+
+    }
 
     //update position
     setPosition = function(x, y) {
@@ -342,9 +325,10 @@
       }
     };
 
-    smashBug = e => {
+    smashBug =( e , parentELem,element) => {
       this.isSquashed = true;
       this.squashedId = e.target.value;
+      this.domSmashAnt(this.squashedId, parentELem,element);
     };
 
     //sets the direction of the ant
@@ -430,7 +414,7 @@
           if (d < this.radius + others.radius) {
             this.isColliding = true;
             others.isColliding = true;
-            if (this.isColliding && others.isColliding && i != j) {
+            if (this.isColliding && others.isColliding && i != j && !this.isSquashed && !others.isSquashed) {
               switch (this.antDirection) {
                 case "n":
                     if (others.antDirection === "n") {
@@ -450,7 +434,7 @@
                     others.isColliding = false;
                   }
                   else if (others.antDirection === "sw") {
-                    this.antDirection = 'w';
+                    this.antDirection = 's';
                     others.antDirection = "nw";
                     this.isColliding = false;
                     others.isColliding = false;
@@ -527,8 +511,7 @@
                     this.isColliding = false;
                     others.isColliding = false;
                   }
-                  else{
-                  //  (others.antDirection === "se") {
+                  else if(others.antDirection === "se") {
                     this.antDirection = 'se';
                     others.antDirection = "ne";
                     this.isColliding = false;
@@ -564,7 +547,8 @@
                   }
                   else if (others.antDirection === "w") {
                     this.antDirection = "sw";
-                    others.antDirection = "e";
+                    //exp
+                    others.antDirection = "s";
                     this.isColliding = false;
                     others.isColliding = false;
                   }
@@ -580,8 +564,8 @@
                     this.isColliding = false;
                     others.isColliding = false;
                   }
-                  else{
-                  // if (others.antDirection === "sw") {
+                  
+                  else if (others.antDirection === "sw") {
                     this.antDirection = "sw";
                     others.antDirection = "nw";
                     this.isColliding = false;
@@ -636,8 +620,8 @@
                     this.isColliding = false;
                     others.isColliding = false;
                   }
-                  else{
-                  // if (others.antDirection === "nw") {
+                  
+                  else if (others.antDirection === "nw") {
                     this.antDirection = 'nw';
                     others.antDirection = "sw";
                     this.isColliding = false;
@@ -687,8 +671,7 @@
                     this.isColliding = false;
                     others.isColliding = false;
                   }
-                  else{
-                    //  (others.antDirection === "ne") {
+                    else if (others.antDirection === "ne") {
                     this.antDirection = 'ne';
                     others.antDirection = "se";
                     this.isColliding = false;
@@ -740,8 +723,7 @@
                     this.isColliding = false;
                     others.isColliding = false;
                   }
-                  else{
-                  //  (others.antDirection === "s") {
+                  else if(others.antDirection === "s") {
                     this.antDirection = "se";
                     others.antDirection = "n";
                     this.isColliding = false;
@@ -792,8 +774,7 @@
                       others.isColliding = false;
                     }
 
-                    else{
-                    // if (others.antDirection === "s") {
+                    else if (others.antDirection === "s") {
                       this.antDirection = "sw";
                       others.antDirection = "n";
                       this.isColliding = false;
@@ -842,8 +823,7 @@
                       this.isColliding = false;
                       others.isColliding = false;
                     }
-                    else{
-                    // if (others.antDirection === "w") {
+                   else if (others.antDirection === "w") {
                       this.antDirection = 'w';
                       others.antDirection = "e";
                       this.isColliding = false;
@@ -866,6 +846,6 @@
   }
 
   //height,width,color,noOfAnts,antSize
-  game1 = new Game(500, 500, "lightblue", 10,30);
-  console.log(game1);
+  game1 = new Game(1024, 768, "lightblue", 20,50);
+  // game2 = new Game(300,300,'green',10,20);
 })();
