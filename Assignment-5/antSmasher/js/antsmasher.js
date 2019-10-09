@@ -1,4 +1,8 @@
 var HighScore = 999;
+if(document.cookie.split(';')[0].split('=')[1]){
+  HighScore = document.cookie.split(';')[0].split('=')[1];
+}
+// document.cookie
 (function() {
   const randRange = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -87,10 +91,10 @@ var HighScore = 999;
       element.innerHTML = "GAME OVER";
       let highS = document.createElement("div");
       gameOver.appendChild(highS);
-      highS.innerHTML = `High Score :${HighScore} Points`;
+      highS.innerHTML = `Least CLicks :${HighScore} Points`;
       let yourScore = document.createElement("div");
       gameOver.appendChild(yourScore);
-      yourScore.innerHTML = `Your Score :${this.score} Points`;
+      yourScore.innerHTML = `Your Clicks :${this.score} Points`;
       let button = document.createElement("button");
       button.innerHTML = "Retry";
       gameOver.appendChild(button);
@@ -139,8 +143,10 @@ var HighScore = 999;
       parentElem.style.display = `${this.display}`;
       let scoreElement = parentElem.children[1];
       let highScoreElement = parentElem.children[2];
-      scoreElement.innerHTML = `your score:${this.score} Points`;
-      highScoreElement.innerHTML = `High Score:${HighScore} Points`;
+      scoreElement.innerHTML = `Your Clicks:${this.score} Points`;
+      highScoreElement.innerHTML = `Least Clicks:${HighScore} Points`;
+      let cookie =`highScore = ${HighScore};`;
+      document.cookie =cookie;
     };
     //the main game loop
     maingameloop = function(antsArray) {
@@ -423,16 +429,16 @@ var HighScore = 999;
       this.isSquashed = true;
       this.squashedId = e.target.value;
       let splatAudio = new Audio(
-        "./assets/audio/Splat-SoundBible.com-1826190667.mp3"
+        './assets/audio/Splat-SoundBible.com-1826190667.mp3'
       );
-      element.style.background = "url(./assets/images/deadAnt.jpg)";
-      this.element.style.backgroundSize = "contain";
-      this.element.style.backgroundRepeat = "round";
-      let value = element.getAttribute("value");
+      element.style.background = 'url(./assets/images/deadAnt1.jpg)';
+      this.element.style.backgroundSize = 'contain';
+      this.element.style.backgroundRepeat = 'round';
+      let value = element.getAttribute('value');
 
-      if (value === "1") {
+      if (value === '1') {
         splatAudio.play();
-        element.setAttribute("value", "0");
+        element.setAttribute('value', '0');
         setTimeout(() => {
           this.domSmashAnt(this.squashedId, parentELem, element);
         }, 2000);
@@ -901,5 +907,5 @@ var HighScore = 999;
   }
 
   //height,width,color,noOfAnts,antSize
-  game1 = new Game(1024, 768, "transparent", 4, 120);
+  game1 = new Game(1024, 768, "transparent", 10, 100);
 })();
