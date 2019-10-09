@@ -1,3 +1,4 @@
+var HighScore = 999;
 (function() {
   const randRange = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -24,7 +25,7 @@
       this.numberofAnts = numberofAnts;
       this.score = 0;
       this.clicks = 0;
-
+      this.display = "none";
       //ant settings
       this.ANT_SIZE = antSize;
       this.antColor = "red";
@@ -37,6 +38,10 @@
         this.backgroundColor
       );
       this.createAnts(this.numberofAnts);
+      // this.domCreateGameOver(this.windowWidth,this.windowHeight,this.score,0);
+      if (!this.isplaying) {
+        console.log("game over here");
+      }
     }
 
     DomCreateWindow = function(width, height, color) {
@@ -54,22 +59,71 @@
       this.element.addEventListener("click", e => this.handleGameScore(e));
     };
 
-    handleGameScore = e => {
-      this.clicks++;
-      console.log(e);
+    domCreateGameOver = function(width, height, display, gameid) {
+      let parentElement = document.getElementsByClassName(
+        "antsmasher-wrapper"
+      )[0];
+
+      let gameOver = document.createElement("div");
+      parentElement.appendChild(gameOver);
+      gameOver.style.color = "white";
+      gameOver.style.backgroundColor = "black";
+      gameOver.style.width = `${parentElement.clientWidth}px`;
+      gameOver.style.height = `100%`;
+      // gameOver.style.margin = "auto";
+      gameOver.setAttribute("class", "game-over");
+      gameOver.style.display = `${this.display}`;
+      gameOver.style.fontSize = "40px";
+      gameOver.style.fontFamily = "cursive";
+      gameOver.style.textAlign = "center";
+      gameOver.style.zIndex = '20';
+      gameOver.style.position = 'absolute';
+      
+
+
+      let element = document.createElement("div");
+
+      gameOver.appendChild(element);
+      element.innerHTML = "GAME OVER";
+      let highS = document.createElement("div");
+      gameOver.appendChild(highS);
+      highS.innerHTML = `High Score :${HighScore} Points`;
+      let yourScore = document.createElement("div");
+      gameOver.appendChild(yourScore);
+      yourScore.innerHTML = `Your Score :${this.score} Points`;
+      let button = document.createElement("button");
+      button.innerHTML = "Retry";
+      gameOver.appendChild(button);
+      button.style.border = "2px solid white";
+      button.style.outline = "none";
+      button.style.padding = "20px";
+      button.style.backgroundColor = "red";
+      button.style.fontSize = "30px";
+      button.style.color = "white";
+      button.style.marginTop = `${100}px`;
+      button.onclick = () => {
+        this.isplaying = true;
+        this.display = "none";
+        document.location.reload();
+      };
     };
 
-    domSmashAnt(e) {
-      this.parentElem = document.getElementsByClassName(
-        "antsmasher-container"
-      )[0];
-      this.element = document.getElementById(`${e.target.id}`);
-      this.parentElem.removeChild(this.element);
-    }
+    handleGameScore = e => {
+      this.clicks++;
+    };
 
     resetScore = () => {
       this.score = 0;
       this.clicks = 0;
+    };
+
+    updateScore = function(s, c) {
+      this.score = s;
+      this.clicks = c;
+      this.score = this.clicks - this.score;
+      HighScore = this.score < HighScore ? this.score : HighScore;
+      this.display = "block";
+      console.log(this.score, this.display, HighScore);
     };
 
     distance = (x1, y1, x2, y2) => {
@@ -79,42 +133,49 @@
       const c = Math.sqrt(a * a + b * b);
       return c;
     };
-  
-    maingameloop = function (antsArray) {
-      
-        //inititialization
 
-        // antsArray[i].draw();
-        // antsArray[i].checkifSmashed();
+    domUpdateScore = function() {
+      let parentElem = document.getElementsByClassName("game-over")[0];
+      parentElem.style.display = `${this.display}`;
+      let scoreElement = parentElem.children[1];
+      let highScoreElement = parentElem.children[2];
+      scoreElement.innerHTML = `your score:${this.score} Points`;
+      highScoreElement.innerHTML = `High Score:${HighScore} Points`;
+    };
+    //the main game loop
+    maingameloop = function(antsArray) {
+      //gameloop
 
-        //gameloop
+      const gameloop = setInterval(() => {
         if (this.isplaying) {
-          for (let i = 0; i< antsArray.length;  i++) {
-       
-          let gameloop = setInterval(() => {
+          for (let i = 0; i < antsArray.length; i++) {
             antsArray[i].move();
             antsArray[i].update(antsArray);
 
-              if (antsArray[i].isSquashed) {
-                this.score++;                             
-                clearInterval(gameloop);           
-              }
-              
-            }  
-        , this.FRAME_RATE);
-
-        if(antsArray[i].isSquashed ){
-          antsArray.splice(i, 1);
-          this.domSmashAnt(i);
-         break;
-        }  
-        }
-      }else {
+            if (antsArray[i].isSquashed) {
+              this.score++;
+              antsArray.splice(i, 1);
+              // i--;
+              break;
+            }
+          }
+          if (this.score === this.numberofAnts) {
+            this.isplaying = false;
+            this.updateScore(this.score, this.clicks);
+            this.domUpdateScore();
+            clearInterval(gameloop);
+          }
+        } else {
+          // this.domCreateGameOver(this.width,this.height,this.score,0);
           //gameover
           // this.maingameloop(antsArray);
         }
+      }, this.FRAME_RATE);
+      if (!this.isplaying) {
+        // this.updateScore(this.score,this.clicks);
       }
-    
+      // }
+    };
 
     // create instances of Ants
     createAnts = function() {
@@ -166,10 +227,14 @@
         antsArray[i].setrandomdirection();
       }
 
+      this.domCreateGameOver(this.width, this.height, this.score, 0);
       this.maingameloop(antsArray);
-
-    
-      }
+      //show gameover screen
+      // if(!this.isplaying){
+      //   console.log('here')
+      //   this.domCreateGameOver(this.width,this.height,this.score,0);
+      // }
+    };
   }
   // Ant childrens
   class Ant {
@@ -183,6 +248,11 @@
       this.dx = 2;
       this.dy = 2;
       this.directions = ["n", "e", "s", "w", "ne", "se", "nw", "sw"];
+      this.angle = 0;
+
+      this.score = 0;
+      this.clicks = 0;
+      this.display = "none";
 
       //ant properties
       this.antDirection = "";
@@ -200,34 +270,58 @@
       this.parentElem.appendChild(this.element);
       this.element.setAttribute("class", "ant");
       this.element.setAttribute("id", id);
+      this.element.setAttribute("value", 1);
       this.element.style.position = "absolute";
       this.element.style.width = `${diameter}px`;
       this.element.style.height = `${diameter}px`;
+      this.element.style.backgroundImage = `url('./assets/images/moving.gif')`;
+      this.element.style.backgroundSize = "contain";
+      this.element.style.backgroundRepeat = "round";
       this.element.style.borderRadius = "50%";
       this.element.style.backgroundColor = `${antColor}`;
-      this.element.addEventListener("click", e => this.smashBug(e, this.parentElem , this.element));
+      this.element.addEventListener("click", e =>
+        this.smashBug(e, this.parentElem, this.element)
+      );
     };
     //dom
     draw = function() {
       this.element.style.top = this.y + "px";
       this.element.style.left = this.x + "px";
+      this.element.style.transform = `rotate(${this.angle}deg)`;
     };
 
-    domSmashAnt = function (id, parentELem, element){
-      // let parentElem = document.getElementsByClassName('antsmasher-wrapper');
-      // let childtoRemove = parentElem.children[id];
-      // console.log(parentELem,element)      
-      // parentElem.removeChild(childtoRemove);
+    checkRotation = function() {
+      switch (this.antDirection) {
+        case "n":
+          this.angle = 0;
+          break;
+        case "ne":
+          this.angle = 45;
+          break;
+        case "e":
+          this.angle = 90;
+          break;
+        case "se":
+          this.angle = 135;
+          break;
+        case "s":
+          this.angle = 180;
+          break;
+        case "sw":
+          this.angle = -135;
+          break;
+        case "w":
+          this.angle = -90;
+          break;
+        case "nw":
+          this.angle = -45;
+          break;
+      }
+    };
 
-      // this.parentELem.removeChild(this.parentELem.children[id]);
-      // this.parentELem.children[id].remove();
-      // this.parentELem.removeChild(this.element);
-      let elementToRemove = document.getElementById(`${id}`)
-      element.parentNode.removeChild(element);  
-     
-      
-
-    }
+    domSmashAnt = function(id, parentELem, element) {
+      element.parentNode.removeChild(element);
+    };
 
     //update position
     setPosition = function(x, y) {
@@ -325,10 +419,24 @@
       }
     };
 
-    smashBug =( e , parentELem,element) => {
+    smashBug = (e, parentELem, element) => {
       this.isSquashed = true;
       this.squashedId = e.target.value;
-      this.domSmashAnt(this.squashedId, parentELem,element);
+      let splatAudio = new Audio(
+        "./assets/audio/Splat-SoundBible.com-1826190667.mp3"
+      );
+      element.style.background = "url(./assets/images/deadAnt.jpg)";
+      this.element.style.backgroundSize = "contain";
+      this.element.style.backgroundRepeat = "round";
+      let value = element.getAttribute("value");
+
+      if (value === "1") {
+        splatAudio.play();
+        element.setAttribute("value", "0");
+        setTimeout(() => {
+          this.domSmashAnt(this.squashedId, parentELem, element);
+        }, 2000);
+      }
     };
 
     //sets the direction of the ant
@@ -349,45 +457,60 @@
         case "n":
           this.y = this.y - this.dy;
           this.checkPosition(this.x, this.y);
+          this.checkRotation();
           this.draw();
           break;
         case "e":
           this.x = this.x + this.dx;
           this.checkPosition(this.x, this.y);
+          this.checkRotation();
+
           this.draw();
           break;
         case "s":
           this.y = this.y + this.dy;
           this.checkPosition(this.x, this.y);
+          this.checkRotation();
+
           this.draw();
           break;
         case "w":
           this.x = this.x - this.dx;
           this.checkPosition(this.x, this.y);
+          this.checkRotation();
+
           this.draw();
           break;
         case "ne":
           this.x = this.x + this.dx;
           this.y = this.y - this.dy;
           this.checkPosition(this.x, this.y);
+          this.checkRotation();
+
           this.draw();
           break;
         case "se":
           this.x = this.x + this.dx;
           this.y = this.y + this.dy;
           this.checkPosition(this.x, this.y);
+          this.checkRotation();
+
           this.draw();
           break;
         case "sw":
           this.x = this.x - this.dx;
           this.y = this.y + this.dy;
           this.checkPosition(this.x, this.y);
+          this.checkRotation();
+
           this.draw();
           break;
         case "nw":
           this.x = this.x - this.dx;
           this.y = this.y - this.dy;
           this.checkPosition(this.x, this.y);
+          this.checkRotation();
+
           this.draw();
           break;
         default:
@@ -414,158 +537,136 @@
           if (d < this.radius + others.radius) {
             this.isColliding = true;
             others.isColliding = true;
-            if (this.isColliding && others.isColliding && i != j && !this.isSquashed && !others.isSquashed) {
+            if (
+              this.isColliding &&
+              others.isColliding &&
+              i != j &&
+              !this.isSquashed &&
+              !others.isSquashed
+            ) {
               switch (this.antDirection) {
                 case "n":
-                    if (others.antDirection === "n") {
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                  else if (others.antDirection === "se") {
+                  if (others.antDirection === "n") {
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "se") {
                     this.antDirection = "ne";
                     others.antDirection = "sw";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "s") {
+                  } else if (others.antDirection === "s") {
                     this.antDirection = "s";
                     others.antDirection = "n";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "sw") {
-                    this.antDirection = 's';
+                  } else if (others.antDirection === "sw") {
+                    this.antDirection = "s";
                     others.antDirection = "nw";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-
-                  else if (others.antDirection === "e") {
-                    this.antDirection = 'ne';
+                  } else if (others.antDirection === "e") {
+                    this.antDirection = "ne";
                     others.antDirection = "w";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-
-                  else if (others.antDirection === "w") {
-                    this.antDirection = 'ne';
+                  } else if (others.antDirection === "w") {
+                    this.antDirection = "ne";
                     others.antDirection = "e";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-
-                  else if (others.antDirection === "ne") {
-                    this.antDirection = 'ne';
+                  } else if (others.antDirection === "ne") {
+                    this.antDirection = "ne";
                     others.antDirection = "nw";
                     this.isColliding = false;
                     others.isColliding = false;
                   }
                   //  (others.antDirection === "nw")
-                  else
-                  {
-                    this.antDirection = 'nw';
+                  else {
+                    this.antDirection = "nw";
                     others.antDirection = "n";
                     this.isColliding = false;
                     others.isColliding = false;
                   }
                   break;
 
-                  case 'ne' : 
+                case "ne":
                   if (others.antDirection === "ne") {
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "s") {
+                  } else if (others.antDirection === "s") {
                     this.antDirection = "se";
                     others.antDirection = "e";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "sw") {
+                  } else if (others.antDirection === "sw") {
                     this.antDirection = "sw";
                     others.antDirection = "ne";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "w") {
-                    this.antDirection = 'nw';
+                  } else if (others.antDirection === "w") {
+                    this.antDirection = "nw";
                     others.antDirection = "e";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "e") {
-                    this.antDirection = 'e';
+                  } else if (others.antDirection === "e") {
+                    this.antDirection = "e";
                     others.antDirection = "ne";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "w") {
-                    this.antDirection = 'nw';
+                  } else if (others.antDirection === "w") {
+                    this.antDirection = "nw";
                     others.antDirection = "e";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "nw") {
-                    this.antDirection = 'nw';
+                  } else if (others.antDirection === "nw") {
+                    this.antDirection = "nw";
                     others.antDirection = "ne";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if(others.antDirection === "se") {
-                    this.antDirection = 'se';
+                  } else if (others.antDirection === "se") {
+                    this.antDirection = "se";
                     others.antDirection = "ne";
                     this.isColliding = false;
                     others.isColliding = false;
                   }
                   break;
 
-
                 case "s":
-                    if (others.antDirection === "s") {
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                  else if (others.antDirection === "ne") {
+                  if (others.antDirection === "s") {
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "ne") {
                     this.antDirection = "se";
                     others.antDirection = "sw";
                     this.isColliding = false;
                     others.isColliding = false;
-
-                  }
-                  else if (others.antDirection === "nw") {
-                        this.antDirection = "w";
-                        others.antDirection = "sw";
-                        this.isColliding = false;
-                        others.isColliding = false;
-                  }
-                  else if (others.antDirection === "n") {
+                  } else if (others.antDirection === "nw") {
+                    this.antDirection = "w";
+                    others.antDirection = "sw";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "n") {
                     this.antDirection = "n";
                     others.antDirection = "s";
                     this.isColliding = false;
                     others.isColliding = false;
-
-                  }
-                  else if (others.antDirection === "w") {
+                  } else if (others.antDirection === "w") {
                     this.antDirection = "sw";
                     //exp
                     others.antDirection = "s";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "e") {
+                  } else if (others.antDirection === "e") {
                     this.antDirection = "se";
                     others.antDirection = "w";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "se") {
+                  } else if (others.antDirection === "se") {
                     this.antDirection = "sw";
                     others.antDirection = "sw";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  
-                  else if (others.antDirection === "sw") {
+                  } else if (others.antDirection === "sw") {
                     this.antDirection = "sw";
                     others.antDirection = "nw";
                     this.isColliding = false;
@@ -573,270 +674,224 @@
                   }
                   break;
 
-                  case 'sw' : 
+                case "sw":
                   if (others.antDirection === "sw") {
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "se") {
-                    this.antDirection = 'se';
-                    others.antDirection = 'sw';
-                    this.isColliding = false;
-                    others.isColliding = false;
-                  }
-                  else if (others.antDirection === "s") {
-                    this.antDirection = 's';
+                  } else if (others.antDirection === "se") {
+                    this.antDirection = "se";
                     others.antDirection = "sw";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "e") {
+                  } else if (others.antDirection === "s") {
+                    this.antDirection = "s";
+                    others.antDirection = "sw";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "e") {
                     this.antDirection = "se";
                     others.antDirection = "s";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "ne") {
+                  } else if (others.antDirection === "ne") {
                     this.antDirection = "ne";
                     others.antDirection = "sw";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "n") {
-                    this.antDirection = 'nw';
+                  } else if (others.antDirection === "n") {
+                    this.antDirection = "nw";
                     others.antDirection = "w";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "e") {
-                    this.antDirection = 'ne';
+                  } else if (others.antDirection === "e") {
+                    this.antDirection = "ne";
                     others.antDirection = "w";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "w") {
-                    this.antDirection = 'w';
+                  } else if (others.antDirection === "w") {
+                    this.antDirection = "w";
                     others.antDirection = "nw";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  
-                  else if (others.antDirection === "nw") {
-                    this.antDirection = 'nw';
+                  } else if (others.antDirection === "nw") {
+                    this.antDirection = "nw";
                     others.antDirection = "sw";
                     this.isColliding = false;
                     others.isColliding = false;
                   }
                   break;
 
-                  case 'se' : 
+                case "se":
                   if (others.antDirection === "se") {
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-
-                  else if (others.antDirection === "e") {
-                    this.antDirection = 'e';
+                  } else if (others.antDirection === "e") {
+                    this.antDirection = "e";
                     others.antDirection = "se";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "sw") {
+                  } else if (others.antDirection === "sw") {
                     this.antDirection = "sw";
                     others.antDirection = "se";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "w") {
+                  } else if (others.antDirection === "w") {
                     this.antDirection = "sw";
                     others.antDirection = "e";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "nw") {
-                    this.antDirection = 'nw';
+                  } else if (others.antDirection === "nw") {
+                    this.antDirection = "nw";
                     others.antDirection = "se";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "n") {
+                  } else if (others.antDirection === "n") {
                     this.antDirection = "ne";
                     others.antDirection = "s";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "s") {
-                    this.antDirection = 's';
-                    others.antDirection = "se";
-                    this.isColliding = false;
-                    others.isColliding = false;
-                  }
-                    else if (others.antDirection === "ne") {
-                    this.antDirection = 'ne';
-                    others.antDirection = "se";
-                    this.isColliding = false;
-                    others.isColliding = false;
-                  }
-
-                  break;
-
-
-                case "e":
-                    if (others.antDirection === "e") {
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                  else if (others.antDirection === "sw") {
+                  } else if (others.antDirection === "s") {
                     this.antDirection = "s";
                     others.antDirection = "se";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "se") {
-                    this.antDirection = 'se';
-                    others.antDirection = "e";
-                    this.isColliding = false;
-                    others.isColliding = false;
-                  }
-                  else if (others.antDirection === "w") {
-                    this.antDirection = "w";
-                    others.antDirection = "e";
-                    this.isColliding = false;
-                    others.isColliding = false;
-                  }
-                  else if (others.antDirection === "nw") {
-                    this.antDirection = "n";
-                    others.antDirection = "ne";
+                  } else if (others.antDirection === "ne") {
+                    this.antDirection = "ne";
+                    others.antDirection = "se";
                     this.isColliding = false;
                     others.isColliding = false;
                   }
 
-                  else if (others.antDirection === "ne") {
+                  break;
+
+                case "e":
+                  if (others.antDirection === "e") {
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "sw") {
+                    this.antDirection = "s";
+                    others.antDirection = "se";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "se") {
+                    this.antDirection = "se";
+                    others.antDirection = "e";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "w") {
+                    this.antDirection = "w";
+                    others.antDirection = "e";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "nw") {
+                    this.antDirection = "n";
+                    others.antDirection = "ne";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "ne") {
                     this.antDirection = "ne";
                     others.antDirection = "e";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if (others.antDirection === "n") {
+                  } else if (others.antDirection === "n") {
                     this.antDirection = "ne";
                     others.antDirection = "s";
                     this.isColliding = false;
                     others.isColliding = false;
-                  }
-                  else if(others.antDirection === "s") {
+                  } else if (others.antDirection === "s") {
                     this.antDirection = "se";
                     others.antDirection = "n";
                     this.isColliding = false;
                     others.isColliding = false;
                   }
                   break;
-                  
+
                 case "w":
-                    if (others.antDirection === "w") {
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                    else if (others.antDirection === "se") {
-                      this.antDirection = "s";
-                      others.antDirection = "sw";
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                    else if (others.antDirection === "sw") {
-                      this.antDirection = "sw";
-                      others.antDirection = "w";
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                    else if (others.antDirection === "e") {
-                      this.antDirection = "e";
-                      others.antDirection = "w";
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                    else if (others.antDirection === "ne") {
-                      this.antDirection = "n";
-                      others.antDirection = "nw";
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                    else if (others.antDirection === "nw") {
-                      this.antDirection = "nw";
-                      others.antDirection = "w";
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
+                  if (others.antDirection === "w") {
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "se") {
+                    this.antDirection = "e";
+                    others.antDirection = "sw";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "sw") {
+                    this.antDirection = "sw";
+                    others.antDirection = "w";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "e") {
+                    this.antDirection = "e";
+                    others.antDirection = "w";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "ne") {
+                    this.antDirection = "n";
+                    others.antDirection = "nw";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "nw") {
+                    this.antDirection = "nw";
+                    others.antDirection = "w";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "n") {
+                    this.antDirection = "nw";
+                    others.antDirection = "s";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "s") {
+                    this.antDirection = "sw";
+                    others.antDirection = "n";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  }
+                  break;
 
-                      else if (others.antDirection === "n") {
-                      this.antDirection = "nw";
-                      others.antDirection = "s";
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-
-                    else if (others.antDirection === "s") {
-                      this.antDirection = "sw";
-                      others.antDirection = "n";
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                    break;
-
-                    case 'nw' : 
-                    if (others.antDirection === "nw") {
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                    else if (others.antDirection === "s") {
-                      this.antDirection = "sw";
-                      others.antDirection = "w";
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                    else if (others.antDirection === "se") {
-                      this.antDirection = "se";
-                      others.antDirection = "nw";
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                    else if (others.antDirection === "sw") {
-                      this.antDirection = "sw";
-                      others.antDirection = "nw";
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                    else if (others.antDirection === "e") {
-                      this.antDirection = 'ne';
-                      others.antDirection = "n";
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                    else if (others.antDirection === "n") {
-                      this.antDirection = 'n';
-                      others.antDirection = "nw";
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                    else if (others.antDirection === "ne") {
-                      this.antDirection = "ne";
-                      others.antDirection = "nw";
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                   else if (others.antDirection === "w") {
-                      this.antDirection = 'w';
-                      others.antDirection = "e";
-                      this.isColliding = false;
-                      others.isColliding = false;
-                    }
-                    break;
-                
+                case "nw":
+                  if (others.antDirection === "nw") {
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "s") {
+                    this.antDirection = "sw";
+                    others.antDirection = "w";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "se") {
+                    this.antDirection = "se";
+                    others.antDirection = "nw";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "sw") {
+                    this.antDirection = "sw";
+                    others.antDirection = "nw";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "e") {
+                    this.antDirection = "ne";
+                    others.antDirection = "n";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "n") {
+                    this.antDirection = "n";
+                    others.antDirection = "nw";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "ne") {
+                    this.antDirection = "ne";
+                    others.antDirection = "nw";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  } else if (others.antDirection === "w") {
+                    this.antDirection = "w";
+                    others.antDirection = "e";
+                    this.isColliding = false;
+                    others.isColliding = false;
+                  }
+                  break;
 
                 default:
                   break;
-                
-
-             
               }
             }
           }
@@ -846,6 +901,5 @@
   }
 
   //height,width,color,noOfAnts,antSize
-  game1 = new Game(1024, 768, "lightblue", 20,50);
-  // game2 = new Game(300,300,'green',10,20);
+  game1 = new Game(1024, 768, "transparent", 4, 120);
 })();
