@@ -1,0 +1,58 @@
+
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+
+.body-container{
+  background-color: chartreuse;
+}
+
+h1{
+  background-color:black;
+  color:white;
+  text-align: center;
+
+
+}
+h2{
+  background-color: white;
+  text-align: center;
+
+}
+
+table{
+  margin:auto;
+  background-color: cyan;
+  border:1px solid black;
+  border-radius: 4px;
+}
+th,td{
+  text-align: center;
+}
+
+td{
+  padding: 10px 10px 10px 10px;
+}
+
+th{
+  background-color:black;
+  color:white;
+  padding:5px 10px 5px 10px;
+}
+
+a{
+  text-decoration: none;
+  background-color:white;
+  padding:5px 30px 5px 30px;
+  color:blue;
+  border-radius: 4px;
+}
+a:hover{
+  color:white;
+  background-color: black;
+}

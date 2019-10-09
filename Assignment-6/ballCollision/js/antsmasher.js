@@ -57,7 +57,7 @@ if(document.cookie.split(';')[0].split('=')[1]){
       this.element.style.backgroundColor = `${color}`;
       this.element.style.border = "2px solid black";
       this.element.style.position = "relative";
-      this.element.addEventListener("click", e => this.handleGameScore(e));
+    
     };
 
     domCreateGameOver = function(width, height, display, gameid) {
@@ -88,42 +88,23 @@ if(document.cookie.split(';')[0].split('=')[1]){
       element.innerHTML = "GAME OVER";
       let highS = document.createElement("div");
       gameOver.appendChild(highS);
+      highS.innerHTML = `Least CLicks :${HighScore} Points`;
       let yourScore = document.createElement("div");
       gameOver.appendChild(yourScore);
+      yourScore.innerHTML = `Your Clicks :${this.score} Points`;
       let button = document.createElement("button");
       button.innerHTML = "Retry";
       gameOver.appendChild(button);
       button.style.border = "2px solid white";
       button.style.outline = "none";
       button.style.padding = "20px";
-      button.style.backgroundColor = "red";
       button.style.fontSize = "30px";
       button.style.color = "white";
       button.style.marginTop = `${100}px`;
-      button.onclick = () => {
-        this.isplaying = true;
-        this.display = "none";
-        document.location.reload();
-      };
+     
     };
 
-    handleGameScore = e => {
-      this.clicks++;
-    };
-
-    resetScore = () => {
-      this.score = 0;
-      this.clicks = 0;
-    };
-
-    updateScore = function(s, c) {
-      this.score = s;
-      this.clicks = c;
-      this.score = this.clicks - this.score;
-      HighScore = this.score < HighScore ? this.score : HighScore;
-      this.display = "block";
-    };
-
+ 
     distance = (x1, y1, x2, y2) => {
       const a = x1 - x2;
       const b = y1 - y2;
@@ -132,16 +113,7 @@ if(document.cookie.split(';')[0].split('=')[1]){
       return c;
     };
 
-    domUpdateScore = function() {
-      let parentElem = document.getElementsByClassName("game-over")[0];
-      parentElem.style.display = `${this.display}`;
-      let scoreElement = parentElem.children[1];
-      let highScoreElement = parentElem.children[2];
-      scoreElement.innerHTML = `Your Clicks:${this.score}`;
-      highScoreElement.innerHTML = `Least Clicks:${HighScore}`;
-      let cookie =`highScore = ${HighScore};`;
-      document.cookie =cookie;
-    };
+
     //the main game loop
     maingameloop = function(antsArray) {
       //gameloop
@@ -162,7 +134,6 @@ if(document.cookie.split(';')[0].split('=')[1]){
           if (this.score === this.numberofAnts) {
             this.isplaying = false;
             this.updateScore(this.score, this.clicks);
-            this.domUpdateScore();
             clearInterval(gameloop);
           }
         } else {
@@ -171,7 +142,10 @@ if(document.cookie.split(';')[0].split('=')[1]){
           // this.maingameloop(antsArray);
         }
       }, this.FRAME_RATE);
-     
+      if (!this.isplaying) {
+        // this.updateScore(this.score,this.clicks);
+      }
+      // }
     };
 
     // create instances of Ants
@@ -218,9 +192,12 @@ if(document.cookie.split(';')[0].split('=')[1]){
       for (let i = 0; i < antsArray.length; i++) {
         //set a unique id for the dom reference
         // antsArray[i].document.setAttribute('id', i);
-
+        let r = randRange(0,255);
+        let g = randRange(0,255);
+        let b = randRange(0,255);
+        let antColor = `rgb(${r},${g},${b})`;
         antsArray[i].setPosition(antsArray[i].x, antsArray[i].y);
-        antsArray[i].domDrawant(this.ANT_SIZE, this.antColor, i);
+        antsArray[i].domDrawant(this.ANT_SIZE, antColor, i);
         antsArray[i].setrandomdirection();
       }
 
@@ -250,12 +227,11 @@ if(document.cookie.split(';')[0].split('=')[1]){
       //ant properties
       this.antDirection = "";
       // this.antDirection = Math.random() * Math.PI * 2;
-      this.isSquashed = false;
-      this.squashedId = "";
+    
       this.isColliding = false;
     }
     //dom
-    domDrawant = function(diameter, antColor = "red", id) {
+    domDrawant = function(diameter, antColor, id) {
       this.parentElem = document.getElementsByClassName(
         "antsmasher-wrapper"
       )[0];
@@ -267,14 +243,13 @@ if(document.cookie.split(';')[0].split('=')[1]){
       this.element.style.position = "absolute";
       this.element.style.width = `${diameter}px`;
       this.element.style.height = `${diameter}px`;
-      this.element.style.backgroundImage = `url('./assets/images/moving.gif')`;
+      // this.element.style.backgroundImage = `url('./assets/images/moving.gif')`;
       this.element.style.backgroundSize = "contain";
       this.element.style.backgroundRepeat = "round";
       this.element.style.borderRadius = "50%";
+      
       this.element.style.backgroundColor = `${antColor}`;
-      this.element.addEventListener("click", e =>
-        this.smashBug(e, this.parentElem, this.element)
-      );
+  
     };
     //dom
     draw = function() {
@@ -312,9 +287,7 @@ if(document.cookie.split(';')[0].split('=')[1]){
       }
     };
 
-    domSmashAnt = function(id, parentELem, element) {
-      element.parentNode.removeChild(element);
-    };
+  
 
     //update position
     setPosition = function(x, y) {
@@ -405,32 +378,13 @@ if(document.cookie.split(';')[0].split('=')[1]){
     //   y = y1 - y2;
 
     //   if (a > Math.sqrt(x * x + y * y)) {
-    //     console.log("collision");
     //     return true;
     //   } else {
     //     return false;
     //   }
     // };
 
-    smashBug = (e, parentELem, element) => {
-      this.isSquashed = true;
-      this.squashedId = e.target.value;
-      let splatAudio = new Audio(
-        './assets/audio/Splat-SoundBible.com-1826190667.mp3'
-      );
-      element.style.background = 'url(./assets/images/deadAnt1.jpg)';
-      this.element.style.backgroundSize = 'contain';
-      this.element.style.backgroundRepeat = 'round';
-      let value = element.getAttribute('value');
-
-      if (value === '1') {
-        splatAudio.play();
-        element.setAttribute('value', '0');
-        setTimeout(() => {
-          this.domSmashAnt(this.squashedId, parentELem, element);
-        }, 2000);
-      }
-    };
+  
 
     //sets the direction of the ant
     setrandomdirection = () => {
@@ -643,9 +597,9 @@ if(document.cookie.split(';')[0].split('=')[1]){
                     this.isColliding = false;
                     others.isColliding = false;
                   } else if (others.antDirection === "w") {
-                    this.antDirection = "sw";
+                    this.antDirection = "n";
                     //exp
-                    others.antDirection = "s";
+                    others.antDirection = "sw";
                     this.isColliding = false;
                     others.isColliding = false;
                   } else if (others.antDirection === "e") {
@@ -893,5 +847,5 @@ if(document.cookie.split(';')[0].split('=')[1]){
   }
 
   //height,width,color,noOfAnts,antSize
-  game1 = new Game(1024, 768, "transparent", 10, 100);
+  game1 = new Game(1024, 768, "black", 8, 40);
 })();
