@@ -366,23 +366,6 @@ if(document.cookie.split(';')[0].split('=')[1]){
       }
     };
 
-    // checkCollision = (x1, y1, x2, y2) => {
-    //   let a;
-    //   let x;
-    //   let y;
-    //   let r1 = r1;
-    //   let r2 = r2;
-
-    //   a = r1 + r2;
-    //   x = x1 - x2;
-    //   y = y1 - y2;
-
-    //   if (a > Math.sqrt(x * x + y * y)) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // };
 
   
 
@@ -485,7 +468,7 @@ if(document.cookie.split(';')[0].split('=')[1]){
             this.isColliding = true;
             others.isColliding = true;
             if (this.isColliding && others.isColliding 
-              && i != j
+              && !i
               //  &&
               // !this.isSquashed &&
               // !others.isSquashed

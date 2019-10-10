@@ -531,7 +531,7 @@ if(document.cookie.split(';')[0].split('=')[1]){
             this.isColliding = true;
             others.isColliding = true;
             if (this.isColliding && others.isColliding 
-              && i != j
+              && !i 
               //  &&
               // !this.isSquashed &&
               // !others.isSquashed
