@@ -341,9 +341,7 @@
 
   
     drawForeground = function (){
-      let element1 = document.getElementsByClassName('fore-ground-container')[0]
-      element1.style.left =  `${this.dx + this.dWidth}px`;
-      this.element.style.left = `${this.dx}px`;
+       
     }
 
     domDrawSprite = function(elementName, sx, sy, dx, dy, dWidth, dHeight) {
