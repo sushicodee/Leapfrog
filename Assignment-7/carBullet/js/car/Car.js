@@ -4,7 +4,7 @@ const randRange = (min, max) => {
   return Math.ceil(Math.random() * (max - min) + min);
 };
  class Car {
-    constructor(elementName,sx,sy,dx,dy,dWidth,dHeight,id,state,carId,randomCar,speed){
+    constructor(elementName,sx,sy,dx,dy,dWidth,dHeight,id,state,carId,randomCar,speed,bulletsArray){
         this.elementName = elementName;
         this.state = state;
         this.dx = dx;
@@ -24,6 +24,8 @@ const randRange = (min, max) => {
 
         //bullet
         this.bullets = 10;
+        this.bulletId = 0;
+        this.bullets = bulletsArray;
       
         //opponent
         this.carId = carId;
@@ -165,11 +167,12 @@ const randRange = (min, max) => {
       //js
 
       updatePosition(){
-        document.addEventListener('keydown', e => this.handleKeyPress(e));
+        const bullets = [];
+        document.addEventListener('keydown', e => this.handleKeyPress(e,bullets));
         document.addEventListener('keyup', e => this.handleKeyUp(e));
       }
 
-      handleKeyPress = function(e){
+      handleKeyPress = function(e,bullets){
           if(!this.isKeyDown){
               this.isKeyDown = true;
               switch(e.keyCode){
@@ -200,10 +203,13 @@ const randRange = (min, max) => {
                   //        break;
                   //shoot
                   case 32: //create and shoot bullet
-                          const bullets = [];
-                          let bullet = new Bullet('bullet',0,0,this.dx,this.dy,20,20,this.id);
+                          
+                          let bullet = new Bullet('bullet',0,0,this.dx + 15,this.dy,10,10,this.id,this.bulletId);
+                          this.bulletId++;
                           bullet.domDrawBulletSprite();
-                          // bullets.push(bullet);
+                          bullet.domDraw();
+
+                          this.bullets.push(bullet);
                           // for(let i = 0; i< bullets.length; i++){
                           //   console.log('draw')
                           //   bullets[i].domDrawBulletSprite(i);

@@ -37,7 +37,6 @@ class Lane {
   }
 
   updateLane = function () {
-    // if(this.state.currentState === this.state.runningState){
       this.dy = (this.dy + this.laneSpeed) % (396);
       this.dy = this.dy === 0 ? -396 : this.dy;
       this.counter++;
@@ -45,7 +44,6 @@ class Lane {
       if(this.counter === 0){
         this.laneSpeed = this.laneSpeed === 6? 6:this.laneSpeed + 2;
       }
-    // }
 }
 
 

@@ -30,6 +30,8 @@
       this.spawnCounter = 0;
       this.counterLimit = 150;
 
+      this.bullets = [];
+
       this.createDomStart();
 
       this.mainGameLoop();
@@ -135,7 +137,7 @@
 
      
 
-       let player = new Car('player',-30,-10, this.width/2 - 20,this.height - 100,40,84,this.id,this.state);
+       let player = new Car('player',-30,-10, this.width/2 - 20,this.height - 100,40,84,this.id,this.state,undefined,undefined,undefined,this.bullets);
        let lane = new Lane('lane', 0,0,this.width/2 - 512/2,-this.height,this.width/2,396,this.id,this.state);
        if(this.state.currentState === this.state.runningState){
 
@@ -181,6 +183,11 @@
                   oppo.domDrawOppoSprite();
                   opponents.push(oppo);
                 }
+              }
+              for(let i =0;i< this.bullets; i++){
+
+                this.bullets[i].shootBullet();
+                this.bullets[i].domDraw();
               }
              
               for(let i = 0; i< opponents.length; i ++){
