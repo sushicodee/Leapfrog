@@ -16,16 +16,10 @@ class Game {
       runningState: 1,
       gameOverState: 2
     };
-
-    this.SCORE_SOUND = new Audio('./assets/audio/sfx_point.wav');
+   
     this.FLAP_SOUND = new Audio('./assets/audio/sfx_flap.wav');
-    this.HIT_SOUND = new Audio('./assets/audio/sfx_hit.wav');
     this.DIE_SOUND = new Audio('./assets/audio/sfx_die.wav');
     this.SWOOSHING_SOUND = new Audio('./assets/audio/sfx_swooshing.wav');
-
-
-
-
 
     //sprite
     this.sprite = sprite;
@@ -92,7 +86,7 @@ class Game {
     } = this.state;
 
     this.domDrawSprite("get-ready-container", 0, 200, 76, 120, 174, 154);
-    this.domDrawSprite("game-over-container", 432, 200, 50, 100, 226, 200);
+    this.domDrawSprite("game-over-container", 432, 200, 50, 100, 226, 170);
     
     
     this.mainGameLoop(this.state,this.element);
