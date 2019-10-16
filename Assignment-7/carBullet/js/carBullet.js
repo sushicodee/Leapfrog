@@ -184,8 +184,8 @@
                   opponents.push(oppo);
                 }
               }
-              for(let i =0;i< this.bullets; i++){
-
+              console.log(this.bullets);
+              for(let i =0;i< this.bullets.length; i++){
                 this.bullets[i].shootBullet();
                 this.bullets[i].domDraw();
               }

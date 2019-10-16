@@ -16,6 +16,7 @@ class Bullet {
 
     shootBullet = function(){
         this.dy = this.dy - this.bulletSpeed;
+        console.log(this.dy,'shooting');
     }
 
     domDraw(){
