@@ -77,14 +77,6 @@ class Game {
     this.element.addEventListener("click", e => this.handleClick(e));
     this.domDrawSprite("background-1", 0, -24, 0, 224, 276, 204);
     this.domDrawSprite("background-2", 0, -24, 276, 224, 276, 204);
-
-    const {
-      currentState,
-      getReadyState,
-      runningState,
-      gameOverState
-    } = this.state;
-
     this.domDrawSprite("get-ready-container", 0, 200, 76, 120, 174, 154);
     this.domDrawSprite("game-over-container", 432, 200, 50, 100, 226, 170);
     
@@ -117,10 +109,6 @@ class Game {
         break;
     }
   };
-
-  createDomGameOver = function(id) {};
-
-  domUpdateScore = function(element) {};
 
   updateGetReady = function (id){
     let element = document.getElementsByClassName('get-ready-container')[0];
