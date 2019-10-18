@@ -13,7 +13,7 @@ class Helix {
     this.ballRadius = 5;
     this.ballGap = 10;
     this.element;
-    this.amplitude = 40;
+    this.amplitude = 40 ;
     this.waveLength = 0.001;
     this.createDomStart();
     this.mainLoop();
@@ -123,22 +123,22 @@ class Helix {
       this.ballsBottom.push(ball3);
     }
     const loop = setInterval(() => {
-      for (let i = 0; i < this.numberOfBalls * 4; i++) {
-        for (let j = 1; j <= 4; j++) {
-          this.ballsTop[i].animateBall(
-            "top",
-            this.height,
-            this.amplitude,
-            i,
-            j
-          );
-          this.ballsBottom[i].animateBall(
-            "bottom",
-            this.height,
-            this.amplitude,
-            i,
-            j
-          );
+        for (let i = 0; i < this.numberOfBalls * 4; i++) {
+          for (let j = 1; j <= 4; j++) {
+            this.ballsTop[i].animateBall(
+              "top",
+              this.height,
+              this.amplitude,
+              i,
+              j
+            );
+            this.ballsBottom[i].animateBall(
+              "bottom",
+              this.height,
+              this.amplitude,
+              i,
+              j
+            );
         }
       }
     }, this.FRAME_RATE);

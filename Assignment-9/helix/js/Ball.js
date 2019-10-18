@@ -63,12 +63,10 @@ class Ball {
         this.counter = 0;
     }
     if (position == "top") {
-    //   let y =  height / 2 + Math.sin(this.y * this.counter) * amplitude  ;
+    
     let y =  
-        height / 2 -this.diameter * j  +
-        Math.sin(i + 1 * this.frequency * this.counter) * amplitude;
-
-        
+        height / 2 - this.diameter  +
+        Math.sin(i + 1 * this.counter) * amplitude;
       this.setPosition(y);
       this.drawPositionChange();
       this.scaleBalls(position, i,j);
@@ -77,8 +75,8 @@ class Ball {
       if (position == "bottom") {
         // let y = this.y + Math.cos( i + 1  * this.counter ) 
         let y =
-          height / 2  -this.diameter * j+
-          Math.cos(i + 1 * this.frequency * this.counter) * amplitude;
+          height / 2  -this.diameter+
+          Math.sin(i + 1 * this.counter) * amplitude * -1;
         this.setPosition(y);
         this.drawPositionChange();
         this.scaleBalls(position, i,j);
