@@ -2,7 +2,7 @@ import Ball from "./Ball.js";
 
 class Helix {
   constructor(width, height, backgroundColor, numberOfBalls) {
-    this.FPS = 60;
+    this.FPS = 30;
     this.FRAME_RATE = 1000 / this.FPS;
     this.width = width;
     this.height = height;
