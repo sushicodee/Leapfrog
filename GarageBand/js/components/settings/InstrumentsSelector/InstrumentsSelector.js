@@ -10,22 +10,33 @@ class InstrumentSelector {
     this.backgroundColor = color;
     this.AUDIO_SRC = '../../../../../../../Bio/Leapfrog/GarageBand/assets/audio/instruments';
     this.instruments = [
-        { id: 0,
-        value: "Guitar",
-        chords:[{id : 0 ,value : 'E',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-E.mp3`},
-                {id : 1,value : 'A',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-A.mp3`},
-                {id : 2,value : 'D',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-D.mp3`},
-                {id : 3,value : 'G',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-G.mp3`},
-                {id : 4,value : 'B',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-B.mp3`},
-                {id : 5,value : 'C',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-C.mp3`},
-                {id : 6,value : 'F',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-F.mp3`},
-                ]
-        },
-        { id: 1,
-         value: "Drums",
-         chords:[],
-        }
-    ];
+      { id: 0,
+      value: 'Guitar',
+      chords:[{id:0,value:'Blank',audioSrc:`${this.AUDIO_SRC}/drums/chords/blank.mp3`},
+              {id : 1 ,value : 'E',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-E.mp3`},
+              {id : 2,value : 'A',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-A.mp3`},
+              {id : 3,value : 'D',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-D.mp3`},
+              {id : 4,value : 'G',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-G.mp3`},
+              {id : 5,value : 'B',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-B.mp3`},
+              {id : 6,value : 'C',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-C.mp3`},
+              {id : 7,value : 'F',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-F.mp3`},
+              ]
+      },
+      { id: 1,
+       value: 'Drums',
+       chords:[{id:0,value:'Blank',audioSrc:`${this.AUDIO_SRC}/drums/chords/blank.mp3`},
+              {id:1,value:'Aco_Snr',audioSrc:`${this.AUDIO_SRC}/drums/chords/Aco_Snr.mp3`},
+              {id:2,value:'Afr_kick',audioSrc:`${this.AUDIO_SRC}/drums/chords/Afr_kick.mp3`},
+              {id:3,value:'Aki_H2',audioSrc:`${this.AUDIO_SRC}/drums/chords/Aki_H2.mp3`},
+              {id:4,value:'Aki_H4',audioSrc:`${this.AUDIO_SRC}/drums/chords/Aki_H4.mp3`},
+              {id:5,value:'Ban_kick',audioSrc:`${this.AUDIO_SRC}/drums/chords/Ban_kick.mp3`},
+              {id:6,value:'Bck_Snr',audioSrc:`${this.AUDIO_SRC}/drums/chords/Bck_Snr.mp3`},
+              {id:7,value:'Ben_kick',audioSrc:`${this.AUDIO_SRC}/drums/chords/Ben_kick.mp3`},
+              {id:8,value:'Bngo_4',audioSrc:`${this.AUDIO_SRC}/drums/chords/Bngo_4.mp3`},
+              {id:9,value:'Cel_snr',audioSrc:`${this.AUDIO_SRC}/drums/chords/Cel_snr.mp3`}],
+      }
+  ];
+  
     this.selectedInstrument = 0;
     //select instruments
     this.selectElement;
@@ -34,8 +45,8 @@ class InstrumentSelector {
 
     this.render();
     this.renderChild();
-    this.renderInstruments();
     this.createSequence();
+    this.renderInstruments();
   }
 
   render() {
@@ -59,8 +70,10 @@ class InstrumentSelector {
     this.instrumentsElement = document.createElement('div');
     this.element.appendChild(this.instrumentsElement);
     this.instrumentsElement.style.position = 'relative';
-
+    console.log('here');
+    
     for(let i =0; i< this.instruments.length; i++){
+
           this.instrument = document.createElement('div');
           this.instrument.width = `${this.width}%`;
           this.instrument.setAttribute('class', `${this.instruments[i].value}-container`);
@@ -71,6 +84,7 @@ class InstrumentSelector {
           let titleElement = document.createElement('h3');
           titleElement.innerText = this.instruments[i].value;
           this.instrument.appendChild(titleElement);
+         
           
           //create chords buttons
           let numberOfChords = this.instruments[i].chords.length;
@@ -111,30 +125,48 @@ class InstrumentSelector {
              playerElement.appendChild(addButton);
              addButton.addEventListener('click', e => this.handleAddToSequence(e,i,j))
 
-            }
-        }        
+             
+            }           
+          }   
+          this.renderInstrument();     
      }
+  handleClearSequence = function(){
+      this.sequence = [];
+      this.sequenceCreator.clearSequence();
+      setTimeout(() => { 
+        console.log('here');
+        this.renderInstruments();
+      },100)
+      this.instrumentsElement.parentNode.removeChild(this.instrumentsElement);
+  }
+
+
   handleAddToSequence = function(e,i,j) {
-      let sequence = {instrumentId: i, chordId : j};
-      this.sequence.push(sequence);
-      console.log(this.sequence);
+      let sequence = {instrumentId: i, chordId : j };
+      this.sequence.push(sequence);      
+      console.log(this.sequence)
+      this.sequenceCreator.displaySequence(this.sequence);
+      
   }   
   
   renderInstrument = function (){
       //conditional display
       for(let i =0; i< this.instruments.length; i++){
-          let instrument = this.instrumentsElement.children[i];  
-            this.selectedInstrument != this.instruments[i].id ? instrument.style.display = 'none':instrument.style.display ='block'; 
+          let instrument = this.instrumentsElement.children[i]; 
+          console.log('inst',instrument);
+          console.log('seleted',this.selectedInstrument); 
+          this.selectedInstrument != this.instruments[i].id ? instrument.style.display = 'none':instrument.style.display ='block'; 
       }
+      
   }
 
   renderChild() {
     this.createSelectBox();
-    
   }
 
   createSequence = function() {
-    let sequenceCreator = new SequenceCreator(this.id,this.element,this.width,undefined,'blue',this.sequence);
+    let sequenceCreator = new SequenceCreator(this.id,this.element,this.width,undefined,'blue',this.sequence,this.instruments);
+    this.sequenceCreator = sequenceCreator;
   }
 
   handleSelectChange = function(e, element) {
@@ -142,9 +174,9 @@ class InstrumentSelector {
     for (let i = 0; i < this.instruments.length; i++) {
       this.selectElement.children[i].removeAttribute("selected");
     }
+    console.log('instrument selected ',selectedIndex);
     element.children[selectedIndex].setAttribute("selected", true);
     this.selectedInstrument = selectedIndex;
-
     this.renderInstrument();
   };
 
@@ -160,6 +192,13 @@ class InstrumentSelector {
 
     this.selectElement.style.width = `${this.width}%`;
     this.element.appendChild(this.selectElement);
+
+    let clearButton = document.createElement('button');
+    clearButton.innerText = 'Discard Sequence';   
+    clearButton.style.backgroundColor = 'black';
+    clearButton.style.color = 'white';
+    this.element.appendChild(clearButton);
+    clearButton.addEventListener('click', e => this.handleClearSequence(e))
 
     //options
     for (let i = 0; i < this.instruments.length; i++) {

@@ -24,8 +24,12 @@ class Dashboard{
     }
     renderChild(){
         const settings = new Settings(this.id,this.parentELement,this.settingsWidth, this.height,'white');
-        const workspace = new Workspace(this.id,this.parentELement,this.workspaceWidth, this.height,'grey');
+        this.workspaceInstance = new Workspace(this.id,this.parentELement,this.workspaceWidth, this.height,'grey');
 
+    }
+
+    DashboardProps(){
+        return this.workspaceInstance
     }
 
 }
