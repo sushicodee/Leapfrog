@@ -1,5 +1,4 @@
 import Storage from '../../../../../../GarageBand/js/components/utility/Storage.js';
-import Workspace from '../../../../../../GarageBand/js/components/workspace/Workspace.js';
 class SequenceCreator {
   constructor(id, parentElement, width, height, color, sequence ,instruments) {
     this.parentElement = parentElement;
@@ -39,8 +38,11 @@ class SequenceCreator {
     this.element.appendChild(HeadingElement);  
     this.SequencesElement = document.createElement('div');
     this.SequencesElement.setAttribute('class','all-sequences-container');
-    this.element.appendChild(this.SequencesElement);
+    this.SequencesElement.style.height = '60px';
+    this.SequencesElement.style.overflowX = 'scroll';
+    this.SequencesElement.style.backgroundColor = 'grey';
 
+    this.element.appendChild(this.SequencesElement);
     this.createSequence();
     this.createPlaySequence();
     this.createStopSequence();
@@ -52,20 +54,43 @@ class SequenceCreator {
     let playElement = document.createElement('button');
     this.element.appendChild(playElement);
     playElement.innerText = 'Play';
+    playElement.style.padding = '5px 10px 5px 10px';
+    playElement.style.marginLeft = '40px';
     playElement.addEventListener('click', e => this.playSequence());
+    let playLogo = document.createElement('i');
+    playLogo.setAttribute('class','fa');
+    playLogo.classList.add('fa-play');
+    playLogo.setAttribute('aria-hidden','true');
+    playLogo.style.fontSize = '10px';
+    playLogo.style.paddingLeft = '2px';
+
+    playElement.appendChild(playLogo);
+
 
   }
-
   createStopSequence = function (){
-    let playElement = document.createElement('button');
-    this.element.appendChild(playElement);
-    playElement.innerText = 'Stop';
-    playElement.addEventListener('click', e => this.stopSequence());
+    let stopElement = document.createElement('button');
+
+    this.element.appendChild(stopElement);
+    stopElement.innerText = 'Stop';
+    stopElement.style.padding = '5px 10px 5px 10px';
+    stopElement.addEventListener('click', e => this.stopSequence());
+
+    let stopLogo = document.createElement('i');
+    stopLogo.setAttribute('class','fa');
+    stopLogo.classList.add('fa-stop');
+    stopLogo.setAttribute('aria-hidden','true');
+    stopLogo.style.fontSize = '10px';
+    stopLogo.style.paddingLeft = '2px';
+    stopElement.appendChild(stopLogo);
 
   }
 
   createSequence = function(){
     this.sequenceElement = document.createElement('span'); 
+    this.sequenceElement.style.lineHeight = '35px';
+    this.sequenceElement.style.marginLeft = '20px';
+
     this.SequencesElement.appendChild(this.sequenceElement);
   }
 
@@ -73,6 +98,7 @@ class SequenceCreator {
     let saveSequenceElement = document.createElement('button');
     this.element.appendChild(saveSequenceElement);
     saveSequenceElement.innerText = 'Save Sequence';
+    saveSequenceElement.style.padding = '5px 10px 5px 10px';
     saveSequenceElement.addEventListener('click', e => this.saveSequence());
   }
 
@@ -81,13 +107,15 @@ class SequenceCreator {
     this.sequenceId = Storage.getNthIndex();
     Storage.saveSequence(this.sequenceId,this.sequence);
     this.sequenceId ++;
-    console.log(this.sequenceList);
-    // if(this.sequenceList ! = null){
-
-    // }
   }
 
  clearSequence = function(){
+   if(this.sequence.length != 0){
+     this.SequencesElement.style.backgroundColor = 'red';
+     setTimeout(()=>{
+       this.SequencesElement.style.backgroundColor = 'grey'
+     },500);
+   }
    this.sequence = [];
    this.chordsSequence = [];
    this.sequenceIndex = 0;
@@ -96,27 +124,37 @@ class SequenceCreator {
 
   displaySequence = function(sequence){
     this.sequence = sequence;
-    console.log(this.sequence);
     this.chordsSequence.push(this.instruments[this.sequence[this.sequenceIndex].instrumentId].chords[this.sequence[this.sequenceIndex].chordId].value);   
     this.sequenceIndex++;
     this.sequenceElement.innerText = (this.chordsSequence);
+    this.SequencesElement.style.backgroundColor = 'green';
+    setTimeout(()=>{
+      this.SequencesElement.style.backgroundColor = 'grey'
+    },500);
   } 
 
-  playSequence = function (sequenceInterval){    
+  playSequence = function (SEQUENCE_INTERVAL){    
       if(this.playingIndex === this.sequence.length){
         this.playingIndex = 0;
-        clearTimeout(sequenceInterval);
+        clearTimeout(SEQUENCE_INTERVAL);
         return;
       }
       else{ 
         let audio = new Audio();
+        let durationRate = this.sequence[this.playingIndex].durationRate.value;
         audio.src = this.instruments[this.sequence[this.playingIndex].instrumentId].chords[this.sequence[this.playingIndex].chordId].audioSrc;
+        //delay to get audio attributes
         setTimeout(()=>{
           this.playingIndex ++;
             audio.play();
-            const sequenceInterval = setTimeout(()=>{
-              audio.addEventListener('ended', this.playSequence(sequenceInterval));
-            },Math.floor(audio.duration) * 1000)
+            if(durationRate != 1){
+              setTimeout(()=>{
+                  audio.currentTime = audio.duration;
+              },(audio.duration * durationRate) * 1000)
+            }
+            const SEQUENCE_INTERVAL = setTimeout(()=>{
+              audio.addEventListener('ended', this.playSequence(SEQUENCE_INTERVAL));
+            },(audio.duration * durationRate) * 1000)
         },100)
       }  
   }

@@ -17,12 +17,12 @@ class Settings{
         this.parentElement.appendChild(this.element);
         this.element.setAttribute('class', `settings-container-${this.id}`);
         this.element.style.width = `${this.width}%`;
-        this.element.style.height = `${this.height}vh`;
+        this.element.style.height = `${this.height}px`;
         this.element.style.backgroundColor = this.backgroundColor;
         this.element.style.float = 'left';
     }
     renderChild(){
-        const instrumentSelector = new InstrumentSelector(this.id,this.element,100,undefined,'purple')    
+        const instrumentSelector = new InstrumentSelector(this.id,this.element,100,undefined,'black')    
     }
 
 

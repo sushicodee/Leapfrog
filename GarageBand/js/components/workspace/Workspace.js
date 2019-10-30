@@ -6,19 +6,19 @@ class Workspace{
         this.width = width;
         this.element;
         this.height = height;
-        this.id = id;
         this.backgroundColor = color;
         this.sequenceList;
         this.render();
         this.renderChild();
+        this.id = id;
     }
-
+ 
     render(){
         this.element = document.createElement('div');
         this.parentElement.appendChild(this.element);
         this.element.setAttribute('class', `workspace-container-${this.id}`);
         this.element.style.width = `${this.width}%`;
-        this.element.style.height = `${this.height}vh`;
+        this.element.style.height = `${this.height}px`;
         this.element.style.backgroundColor = this.backgroundColor;
         this.element.style.float = 'right';
     }
@@ -29,7 +29,7 @@ class Workspace{
     }
 
     renderList = function () {
-        this.sequenceList = new SequenceList(this.id,this.element,this.width,this.height,'green');
+        this.sequenceList = new SequenceList(this.id,this.element,this.width,this.height,'white');
         
     }
 

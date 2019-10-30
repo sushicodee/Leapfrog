@@ -56,18 +56,32 @@ this.instruments = [
 
         //render Title
         let titleElement = document.createElement('h2');
-        titleElement.innerText = 'Avaliable Sequences';
+        titleElement.innerText = 'Available Sequences';
         this.element.appendChild(titleElement);
 
         let refreshElement = document.createElement('button');
         refreshElement.innerText = 'Refresh';
+        refreshElement.style.padding = '5px 10px 5px 10px';
+        refreshElement.style.marginLeft = '10px';
+
         this.element.appendChild(refreshElement);
         refreshElement.addEventListener('click' , e => this.handleRefresh())
 
         let clearTracksElement = document.createElement('button');
         clearTracksElement.innerText = 'Clear All Tracks';
+        clearTracksElement.style.padding = '5px 10px 5px 10px';
+        clearTracksElement.style.marginLeft = '10px';
+
         this.element.appendChild(clearTracksElement);
         clearTracksElement.addEventListener('click' , e => this.handleClearTracks())
+
+        let PopTracksElement = document.createElement('button');
+        PopTracksElement.innerText = 'Pop Track';
+        PopTracksElement.style.padding = '5px 10px 5px 10px';
+        PopTracksElement.style.marginLeft = '10px'
+
+        this.element.appendChild(PopTracksElement);
+        PopTracksElement.addEventListener('click' , e => this.handlePopTrack())
 
 
 
@@ -102,6 +116,7 @@ this.instruments = [
     renderList(){
         this.renderList = document.createElement('div');
         this.renderList.setAttribute('class','all-sequence-list');
+        this.renderList.style.height = '180px';
         this.element.appendChild(this.renderList);
         this.renderListUl();
 
@@ -109,67 +124,65 @@ this.instruments = [
     }
 
     renderSequencePlayer = function(){
-        this.sequencePlayerInstance = new SequencePlayer(this.id,this.element,this.width,this.height,'purple',this.instruments,this.sequenceArray);
+        this.sequencePlayerInstance = new SequencePlayer(this.id,this.element,this.width,this.height,'grey',this.instruments,this.sequenceArray);
     }
 
     renderListUl(){
          this.listUlElement = document.createElement('ul');
         this.renderList.appendChild(this.listUlElement);
+        this.listUlElement.style.height = '155px';
+        this.listUlElement.style.backgroundColor = 'rgba(0, 0, 0, 0.822)'
+        this.listUlElement.style.overflowY = 'scroll';
+        this.listUlElement.style.overflowX = 'scroll';
+        
+
         this.renderListLi(this.listUlElement);
 
     }
 
     renderListLi(){
         this.sequenceArray = Storage.getAllSequence();
-        console.log('sequenceArray',this.sequenceArray);
         for(let i = 0; i < this.sequenceArray.length; i++){
             this.liElement = document.createElement('li');
             this.listUlElement.appendChild(this.liElement);
             this.liElement.setAttribute('id',i);  
             this.liElement.setAttribute('class','tracks')
             let indexElement = document.createElement('span');
-            indexElement.innerText = i;
+            indexElement.innerText = `${i}. `;
             this.liElement.appendChild(indexElement);
             let numberofSequences = this.sequenceArray[i].track.length;
 
-            console.log(numberofSequences)
             for(let j = 0; j < numberofSequences;j++){
-                //    console.log(this.instruments[this.sequenceArray[j].track[j].instrumentId].chords[this.sequenceArray[j].track[j].chordId].value);
                let instrumentCordsElement = document.createElement('span');
                instrumentCordsElement.innerText = (this.instruments[this.sequenceArray[i].track[j].instrumentId].chords[this.sequenceArray[i].track[j].chordId].value);
                instrumentCordsElement.setAttribute('id', j);
-               this.liElement.appendChild(instrumentCordsElement)
+               this.liElement.appendChild(instrumentCordsElement);
 
             }
-            this.deleteTrackButton(i);
+            // this.deleteTrackButton(i);
         
             }
     }
     
-    deleteTrackButton = function(index){
-        let deleteElement = document.createElement('button');
-        deleteElement.setAttribute('id',index);
-        deleteElement.innerHTML = 'Delete Track';
-        this.liElement.appendChild(deleteElement);
-        deleteElement.addEventListener('click', e => this.handleDeleteTrack(index))
+    // deleteTrackButton = function(index){
+    //     let deleteElement = document.createElement('button');
+    //     deleteElement.setAttribute('id',index);
+    //     deleteElement.innerHTML = 'Delete Track';
+    //     this.liElement.appendChild(deleteElement);
+    //     deleteElement.addEventListener('click', e => this.handleDeleteTrack(index))
 
-    }
+    // }
 
-    handleDeleteTrack = function(index){
-        console.log(this.liElement.parentNode.children[index]);
-        Storage.deleteTrack(index);
-        // setTimeout(()=>{
-        //     this.renderListUl();
-        // },10)
-        //     this.listUlElement.parentNode.removeChild(this.listUlElement)
-        this.handleRefresh();
+    // handleDeleteTrack = function(index){
+    //     Storage.deleteTrack(index);
+    //     this.handleRefresh();
+    //     this.sequencePlayerInstance.handleRefresh();
+    // }
+
+    handlePopTrack = function(){
+        Storage.deleteTrack(this.liElement.parentNode.children.length -1);
         this.sequencePlayerInstance.handleRefresh();
-
-
-        
-
-
+        this.handleRefresh();
     }
-    
 }
 export default SequenceList;

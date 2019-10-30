@@ -17,18 +17,13 @@ class SequencePlayer {
         this.sequenceArray = sequenceArray;
         this.instruments = instruments;
 
-        //localmembers
-
-        this.Mainvolume;
-        this.Maintempo;
-        this.Mainfilter;
-        this.Maindelay;
+        this.playerInstanceArray = [];
        
     }
 
     render(){
         this.element = document.createElement('div');
-        this.element.setAttribute('class', `sequence-player-constainer-${this.id}`);
+        this.element.setAttribute('class', `sequence-player-container-${this.id}`);
         this.element.style.width = '100%';
         this.element.style.backgroundColor = this.backgroundColor;
         this.parentElement.appendChild(this.element);
@@ -42,22 +37,27 @@ class SequencePlayer {
     renderChild(){
 
         this.playerElement = document.createElement('div');
+        this.playerElement.style.overflowY = 'scroll';
+        this.playerElement.style.height = '485px';
+        this.playerElement.style.backgroundColor = 'black';
         this.element.appendChild(this.playerElement);
         this.renderAllPlayers();
     }
 
     handleRefresh(){
-        console.log('refresh');
         this.playerElement.removeChild(this.ulPlayerElement);
-        this.renderAllPlayers();
+        this.renderAllPlayers(this.stopAllplayers());
     }
 
-    renderAllPlayers(){
-        console.log('here');
+    renderAllPlayers(callback){
+        if(callback){
+            callback();
+        }
         this.sequenceArray = Storage.getAllSequence();
-        console.log(this.sequenceArray);
         this.ulPlayerElement = document.createElement('ul');
+        this.ulPlayerElement.style.listStyleType = 'none';
         this.playerElement.appendChild(this.ulPlayerElement);
+       
         for(let i = 0; i< this.sequenceArray.length; i++ ){
             let liPlayerElement = document.createElement('li');
             liPlayerElement.setAttribute('id',i);
@@ -68,9 +68,15 @@ class SequencePlayer {
     }
 
     renderPlayer(i){
-        this.playerInstanceName = 'player' + i;
-        this.playerInstanceName = new Player(i,this.ulPlayerElement.children[i],this.width,this.height,'white',this.instruments)
-        
+        let playerInstance = 'player' + i;
+        playerInstance = new Player(i,this.ulPlayerElement.children[i],this.width,this.height,'white',this.instruments);
+        this.playerInstanceArray.push(playerInstance);
+    }
+
+    stopAllplayers() {
+        for(let i =0; i<this.sequenceArray.length; i++){
+            this.playerInstanceArray[i].stopAndRefresh();
+        }
     }
 }
 

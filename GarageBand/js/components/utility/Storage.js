@@ -1,10 +1,9 @@
 class Storage{
-   
-
     static saveSequence = function(sequenceId,sequence){
         localStorage.setItem(sequenceId,JSON.stringify(sequence));
         // localStorage.setItem(sequenceId,(sequence));
     }
+
 
     
     static getAllSequence = function(){ 
@@ -12,7 +11,6 @@ class Storage{
         for(let i = 0; i < localStorage.length; i++){
            this.sequenceArray.push({trackId: i, track: JSON.parse(localStorage[i])});
         }
-        console.log('fromLocalStorage',this.sequenceArray);
             return (this.sequenceArray);
     }
     static updateStorage = function(){

@@ -17,7 +17,7 @@ class Dashboard{
     render(){
         this.parentELement.classList.add('clearfix');
         this.parentELement.style.width = `${this.width}em`;
-        this.parentELement.style.height = `${this.height}vh`;
+        this.parentELement.style.height = `${this.height}px`;
         this.parentELement.style.backgroundColor = `${this.backgroundColor}`;   
         this.parentELement.style.margin = 'auto';   
 

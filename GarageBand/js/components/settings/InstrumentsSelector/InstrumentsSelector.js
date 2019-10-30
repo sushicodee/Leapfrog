@@ -9,6 +9,10 @@ class InstrumentSelector {
     this.id = id;
     this.backgroundColor = color;
     this.AUDIO_SRC = '../../../../../../../Bio/Leapfrog/GarageBand/assets/audio/instruments';
+    this.durationsArray = [{id:0,name:'full',value:1},
+    {id:1,name:'halfrate',value:0.5},
+    {id:2,name:'1/3',value:1/3},
+    {id:3,name:'1/4',value:1/4},];
     this.instruments = [
       { id: 0,
       value: 'Guitar',
@@ -63,14 +67,22 @@ class InstrumentSelector {
 
   playAudio = function (e,audioElement) {
     audioElement.currentTime = 0;  
+    let selectedIndex = e.target.parentElement.children[5].selectedIndex
+    if(selectedIndex != 0){
+      audioElement.play();
+      let durationRate = this.durationsArray[e.target.parentElement.children[5].selectedIndex].value;
+      setTimeout(()=>{
+        audioElement.pause();
+      }, (audioElement.duration * durationRate) * 1000)
+    }else{
     audioElement.play();
+    }
   }
 
   renderInstruments(){
     this.instrumentsElement = document.createElement('div');
     this.element.appendChild(this.instrumentsElement);
     this.instrumentsElement.style.position = 'relative';
-    console.log('here');
     
     for(let i =0; i< this.instruments.length; i++){
 
@@ -79,6 +91,8 @@ class InstrumentSelector {
           this.instrument.setAttribute('class', `${this.instruments[i].value}-container`);
           this.instrument.setAttribute('id', this.instruments[i].id);
           this.instrument.style.display = 'none';
+          this.instrument.style.height = '522px';
+          this.instrument.style.overflowY = 'scroll';
           this.instrumentsElement.appendChild(this.instrument);
           //title
           let titleElement = document.createElement('h3');
@@ -96,7 +110,7 @@ class InstrumentSelector {
 
               playerElement.style.border = '1px solid white';
               playerElement.style.color = 'white';
-              playerElement.style.backgroundColor = 'black';
+              playerElement.style.backgroundColor = 'dimgrey';
               let toneHeading = document.createElement('h3');
               toneHeading.innerText = this.instruments[i].chords[j].value;
               playerElement.appendChild(toneHeading);
@@ -108,43 +122,69 @@ class InstrumentSelector {
              audioElement.setAttribute('src',`${this.instruments[i].chords[j].audioSrc}`); 
 
              playerElement.appendChild(audioElement);
-             //preview
+             //preview 
              let previewButton = document.createElement('button');
              previewButton.innerText = 'play';
-             previewButton.style.color = 'white';
-             previewButton.style.backgroundColor = 'black';
+            //  previewButton.style.color = 'white';
+            //  previewButton.style.backgroundColor = 'black';
+             previewButton.style.padding = '5px 10px 5px 10px';
+             previewButton.style.marginLeft = '30px';
+             previewButton.style.marginRight = '10px';
              previewButton.setAttribute('id',this.instruments[i].chords[j].id);
              playerElement.appendChild(previewButton);
-             previewButton.addEventListener('click', e => this.playAudio(e,audioElement))
+             previewButton.addEventListener('click', e => this.playAudio(e,audioElement));
             //add to sequence
              let addButton = document.createElement('button');
              addButton.innerText = 'Add To Sequence';   
-             addButton.style.backgroundColor = 'black';
-             addButton.style.color = 'white';
+            //  addButton.style.backgroundColor = 'black';
+            //  addButton.style.color = 'white';
+             addButton.style.padding = '5px 10px 5px 10px';
              addButton.setAttribute('id',this.instruments[i].chords[j].id);
              playerElement.appendChild(addButton);
-             addButton.addEventListener('click', e => this.handleAddToSequence(e,i,j))
-
+             addButton.addEventListener('click', e => this.handleAddToSequence(e,i,j));
              
+             let durationTitle = document.createElement('label');
+             durationTitle .innerText = 'Duration Rate';
+             durationTitle.style.color = 'white';
+             durationTitle.style.paddingLeft = '30px';
+
+             playerElement.appendChild(durationTitle);
+             this.durationElement = document.createElement('select');
+             this.durationElement.setAttribute('id',j);
+             this.durationElement.setAttribute('class','select-duration');
+             this.durationElement.style.marginLeft = '20px';
+             playerElement.appendChild(this.durationElement);
+
+             for(let k =0; k< this.durationsArray.length; k++){
+               let optionElement = document.createElement('option');
+               optionElement.setAttribute('id', this.durationsArray[k].id);
+               optionElement.setAttribute('value', this.durationsArray[k].value);
+               optionElement.innerText = this.durationsArray[k].name;
+               this.durationElement.appendChild(optionElement);
+               this.durationElement.setAttribute('selectedIndex', 0);
+             }
+             this.durationElement.addEventListener("click", e => this.handleDurationChange(e,this.selectElement)
+           );
             }           
           }   
           this.renderInstrument();     
      }
+
+  handleDurationChange(e){
+    this.durationElement.setAttribute('selectedIndex', e.target.selectedIndex);
+  }
+
   handleClearSequence = function(){
       this.sequence = [];
       this.sequenceCreator.clearSequence();
-      setTimeout(() => { 
-        console.log('here');
-        this.renderInstruments();
-      },100)
       this.instrumentsElement.parentNode.removeChild(this.instrumentsElement);
+      this.renderInstruments();
   }
 
 
   handleAddToSequence = function(e,i,j) {
-      let sequence = {instrumentId: i, chordId : j };
+      let sequence = {instrumentId: i, chordId : j, durationRate : this.durationsArray[this.durationElement.getAttribute('selectedIndex')]};
       this.sequence.push(sequence);      
-      console.log(this.sequence)
       this.sequenceCreator.displaySequence(this.sequence);
       
   }   
@@ -153,8 +193,6 @@ class InstrumentSelector {
       //conditional display
       for(let i =0; i< this.instruments.length; i++){
           let instrument = this.instrumentsElement.children[i]; 
-          console.log('inst',instrument);
-          console.log('seleted',this.selectedInstrument); 
           this.selectedInstrument != this.instruments[i].id ? instrument.style.display = 'none':instrument.style.display ='block'; 
       }
       
@@ -165,7 +203,7 @@ class InstrumentSelector {
   }
 
   createSequence = function() {
-    let sequenceCreator = new SequenceCreator(this.id,this.element,this.width,undefined,'blue',this.sequence,this.instruments);
+    let sequenceCreator = new SequenceCreator(this.id,this.element,this.width,undefined,'white',this.sequence,this.instruments);
     this.sequenceCreator = sequenceCreator;
   }
 
@@ -174,10 +212,10 @@ class InstrumentSelector {
     for (let i = 0; i < this.instruments.length; i++) {
       this.selectElement.children[i].removeAttribute("selected");
     }
-    console.log('instrument selected ',selectedIndex);
     element.children[selectedIndex].setAttribute("selected", true);
     this.selectedInstrument = selectedIndex;
     this.renderInstrument();
+    this.sequenceCreator.clearSequence();
   };
 
   createSelectBox = function() {
@@ -189,14 +227,19 @@ class InstrumentSelector {
     this.element.appendChild(selectorTitle);
     this.selectElement = document.createElement("select");
     this.selectElement.setAttribute("class", "select-instrument");
-
+    this.selectElement.style.padding = '10px';
     this.selectElement.style.width = `${this.width}%`;
     this.element.appendChild(this.selectElement);
 
     let clearButton = document.createElement('button');
+    clearButton.setAttribute('class', 'discard-sequence-button')
     clearButton.innerText = 'Discard Sequence';   
-    clearButton.style.backgroundColor = 'black';
-    clearButton.style.color = 'white';
+    clearButton.style.padding = '5px 10px 5px 10px';
+    clearButton.style.display = 'block';
+    clearButton.style.margin = ' 10px auto';
+    clearButton.style.borderRadius = '4px';
+
+  
     this.element.appendChild(clearButton);
     clearButton.addEventListener('click', e => this.handleClearSequence(e))
 
@@ -208,7 +251,6 @@ class InstrumentSelector {
       optionElement.setAttribute("value", `${this.instruments[i].value}`);
       optionElement.innerText = this.instruments[i].value;
       this.selectElement.appendChild(optionElement);
-
       this.selectElement.addEventListener("click", e =>
         this.handleSelectChange(e, this.selectElement)
       );
