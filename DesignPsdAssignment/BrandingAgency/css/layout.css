@@ -360,9 +360,9 @@
   .footer-container {
     margin: 0px 16px 0px 16px;
   }
-  .footer-top {
+  /* .footer-top {
     margin: 0px 16px 0px 16px;
-  }
+  } */
 
   .footer-top ol li {
     margin: auto;
@@ -371,6 +371,7 @@
   .about-us ul li{
     float: left;
     width: 4.8648%;
+    padding: 18px;
   }
 
   .follow-links{
@@ -552,6 +553,8 @@
     width: 57.2649%;
     padding: 108px 0px 100px 0px;
   }
+
+ 
 
 
 }
@@ -777,6 +780,9 @@
     padding-left: 10.8108%;
     padding-bottom: 3.90625%;
     text-align: left;
+  }
+  .about-us ul li{
+    padding: 0 0;
   }
 
   .footer-links ol li{

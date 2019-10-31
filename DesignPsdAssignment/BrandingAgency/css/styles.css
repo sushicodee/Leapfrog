@@ -15,7 +15,7 @@ ul {
 
 .footer-top ol li h1 {
   font-size: 20px;
-  font-family: "PlayfairDisplay";
+  font-family: 'Playfair Display', serif;
 }
 
 .header-overlay img {
@@ -25,13 +25,13 @@ ul {
 
 .header-info p {
   color: white;
-  font-family: "WorkSans";
+  font-family: 'Work Sans', sans-serif;
   font-weight: bold;
   text-transform: uppercase;
 }
 
 .header-info h1 {
-  font-family: "PlayfairDisplay";
+  font-family: 'Playfair Display', serif;
   color: white;
   font-weight: bold;
   margin: auto;
@@ -75,12 +75,12 @@ ul {
 }
 
 .testimonial-carousel-item p:first-child {
-  font-family: "PlayfairDisplay";
+  font-family: 'Playfair Display', serif;
   font-style: italic;
 }
 
 .testimonial-carousel-item p:first-child + p {
-  font-family: "WorkSans";
+  font-family: 'Work Sans', sans-serif;
   text-transform: uppercase;
 }
 
@@ -205,7 +205,7 @@ ul {
     background-color: #252525;
     color: white;
     font-size: 12px;
-    font-family: "WorkSans";
+    font-family: 'Work Sans', sans-serif;
     text-transform: uppercase;
     padding: 0px 12px;
     left: 10px;
@@ -213,19 +213,19 @@ ul {
   }
   .blog-info h2 {
     font-size: 20px;
-    font-family: "PlayfairDisplay";
+    font-family: 'Playfair Display', serif;
     font-weight: bold;
   }
   .blog-info p:first-child {
     font-size: 12px;
-    font-family: "WorkSans";
+    font-family: 'Work Sans', sans-serif;
     text-transform: uppercase;
     line-height: 2;
   }
 
   .blog-info p:first-child + p {
     font-size: 15px;
-    font-family: "WorkSans";
+    font-family: 'Work Sans', sans-serif;
     color: rgb(95, 95, 95);
     line-height: 1.6;
   }
@@ -264,7 +264,7 @@ ul {
 
   .blog-card-info h2 {
     font-size: 18px;
-    font-family: "PlayfairDisplay";
+    font-family: 'Playfair Display', serif;
     font-weight: bold;
     line-height: 1.2;
     text-align: left;
@@ -274,7 +274,7 @@ ul {
     text-align: left;
 
     font-size: 10px;
-    font-family: "WorkSans";
+    font-family: 'Work Sans', sans-serif;
     text-transform: uppercase;
     line-height: 2;
   }
@@ -282,7 +282,7 @@ ul {
   .blog-card-info p:last-child {
     text-align: left;
     font-size: 12px;
-    font-family: "WorkSans";
+    font-family: 'Work Sans', sans-serif;
     color: rgb(95, 95, 95);
   }
 
@@ -321,7 +321,7 @@ ul {
     background-color: #252525;
     border: 1px solid #252525;
     font-size: 14px;
-    font-family: "WorkSans";
+    font-family: 'Work Sans', sans-serif;
     text-transform: uppercase;
     text-align: left;
   }
@@ -338,7 +338,8 @@ ul {
   }
 
   .instagram-feed img {
-    width: 22.9719%;
+    /* width: 22.9719%; */
+    width: 22.6719%;
     margin-left: 1.2664%;
     /* margin-left: 2.7027%; */
     background-color: grey;
@@ -475,7 +476,7 @@ ul {
   /* .agency-insights-item p {
     margin-left:76px;
     text-align: left;
-    font-family: "WorkSans";
+    font-family: 'Work Sans', sans-serif;
    
   } */
   .agency-insights-item p {
@@ -524,7 +525,7 @@ ul {
   .latest-twits h1,
   .instagram-feed h1 {
     text-align: left;
-    font-family: "PlayfairDisplay";
+    font-family: 'Playfair Display', serif;
     font-size: 20px;
     font-weight: bold;
     line-height: 66px;
