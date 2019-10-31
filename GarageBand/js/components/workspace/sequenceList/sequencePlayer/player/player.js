@@ -11,8 +11,9 @@ class Player {
     this.height = height;
     this.backgroundColor = color;
     this.loop = false;
-    this.AUDIO_SRC =
-      '../../../../../../../../../Bio/Leapfrog/GarageBand/assets/audio/instruments';
+    this.AUDIO_SRC = '../../../../../../../../Leapfrog/GarageBand/assets/audio/instruments';
+
+    // this.AUDIO_SRC = '../../../../../../../../../Bio/Leapfrog/GarageBand/assets/audio/instruments';
     // this.instruments = instruments;
     this.instruments = [
       {

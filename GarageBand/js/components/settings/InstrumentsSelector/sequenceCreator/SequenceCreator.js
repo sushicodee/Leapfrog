@@ -7,7 +7,9 @@ class SequenceCreator {
     this.height = height;
     this.id = id;
     this.backgroundColor = color;
-    this.AUDIO_SRC = '../../../../../../../../Bio/Leapfrog/GarageBand/assets/audio/instruments';
+    this.AUDIO_SRC = '../../../../../../../Leapfrog/GarageBand/assets/audio/instruments';
+
+    // this.AUDIO_SRC = '../../../../../../../../Bio/Leapfrog/GarageBand/assets/audio/instruments';
     this.playingIndex = 0;
     this.sequenceIndex = 0;
     this.sequence = sequence;
