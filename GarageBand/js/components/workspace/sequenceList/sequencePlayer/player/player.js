@@ -11,9 +11,9 @@ class Player {
     this.height = height;
     this.backgroundColor = color;
     this.loop = false;
-    this.AUDIO_SRC = '../../../../../../assets/audio/instruments';
+    // this.AUDIO_SRC = '../../../../../../assets/audio/instruments';
 
-    // this.AUDIO_SRC = '../../../../../../../../../Bio/Leapfrog/GarageBand/assets/audio/instruments';
+    this.AUDIO_SRC = '../../../../../../../../Leapfrog/GarageBand/assets/audio/instruments';
     // this.instruments = instruments;
     this.instruments = [
       {
@@ -186,7 +186,7 @@ class Player {
     this.displayInstrumentImg = document.createElement('div');
     this.element.appendChild(this.displayInstrumentImg);
     let imgElement = document.createElement('img');
-    imgElement.setAttribute('src',`../../../../../../../../../Bio/Leapfrog/GarageBand/assets/images/${currentSequenceArray[0].instrumentId}.png`);
+    imgElement.setAttribute('src',`../../../../../../../../Leapfrog/GarageBand/assets/images/${currentSequenceArray[0].instrumentId}.png`);
     imgElement.style.width = '300px';
     imgElement.style.margin = 'auto';
     imgElement.style.display = 'block';
