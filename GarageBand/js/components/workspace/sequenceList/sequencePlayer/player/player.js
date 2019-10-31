@@ -16,109 +16,39 @@ class Player {
     this.AUDIO_SRC = '../../../../../../../../Leapfrog/GarageBand/assets/audio/instruments';
     // this.instruments = instruments;
     this.instruments = [
-      {
-        id: 0,
-        value: 'Guitar',
-        chords: [
-          {
-            id: 0,
-            value: 'Blank',
-            audioSrc: `${this.AUDIO_SRC}/drums/chords/blank.mp3`
-          },
-          {
-            id: 1,
-            value: 'E',
-            audioSrc: `${this.AUDIO_SRC}/guitar/chords/cleanchord-E.mp3`
-          },
-          {
-            id: 2,
-            value: 'A',
-            audioSrc: `${this.AUDIO_SRC}/guitar/chords/cleanchord-A.mp3`
-          },
-          {
-            id: 3,
-            value: 'D',
-            audioSrc: `${this.AUDIO_SRC}/guitar/chords/cleanchord-D.mp3`
-          },
-          {
-            id: 4,
-            value: 'G',
-            audioSrc: `${this.AUDIO_SRC}/guitar/chords/cleanchord-G.mp3`
-          },
-          {
-            id: 5,
-            value: 'B',
-            audioSrc: `${this.AUDIO_SRC}/guitar/chords/cleanchord-B.mp3`
-          },
-          {
-            id: 6,
-            value: 'C',
-            audioSrc: `${this.AUDIO_SRC}/guitar/chords/cleanchord-C.mp3`
-          },
-          {
-            id: 7,
-            value: 'F',
-            audioSrc: `${this.AUDIO_SRC}/guitar/chords/cleanchord-F.mp3`
-          }
-        ]
+      { id: 0,
+      value: 'Guitar',
+      chords:[{id:0,value:'Blank',audioSrc:`${this.AUDIO_SRC}/drums/chords/blank.mp3`},
+              {id : 1 ,value : 'E',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-E.mp3`},
+              {id : 2,value : 'A',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-A.mp3`},
+              {id : 3,value : 'D',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-D.mp3`},
+              {id : 4,value : 'G',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-G.mp3`},
+              {id : 5,value : 'B',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-B.mp3`},
+              {id : 6,value : 'C',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-C.mp3`},
+              {id : 7,value : 'F',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-F.mp3`},
+              {id : 8,value : 'E-minor',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-Em.mp3`},
+              {id : 9,value : 'A-minor',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-Am.mp3`},
+              {id : 10,value : 'D-minor',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-Dm.mp3`},
+              {id : 11,value : 'G-minor',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-Gm.mp3`},
+              {id : 12,value : 'B-minor',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-Bm.mp3`},
+              {id : 13,value : 'C-minor',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-Cm.mp3`},
+              {id : 14,value : 'F-minor',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-Fm.mp3`},
+              ]
       },
-      {
-        id: 1,
-        value: 'Drums',
-        chords: [
-          {
-            id: 0,
-            value: 'Blank',
-            audioSrc: `${this.AUDIO_SRC}/drums/chords/blank.mp3`
-          },
-          {
-            id: 1,
-            value: 'Aco_Snr',
-            audioSrc: `${this.AUDIO_SRC}/drums/chords/Aco_Snr.mp3`
-          },
-          {
-            id: 2,
-            value: 'Afr_kick',
-            audioSrc: `${this.AUDIO_SRC}/drums/chords/Afr_kick.mp3`
-          },
-          {
-            id: 3,
-            value: 'Aki_H2',
-            audioSrc: `${this.AUDIO_SRC}/drums/chords/Aki_H2.mp3`
-          },
-          {
-            id: 4,
-            value: 'Aki_H4',
-            audioSrc: `${this.AUDIO_SRC}/drums/chords/Aki_H4.mp3`
-          },
-          {
-            id: 5,
-            value: 'Ban_kick',
-            audioSrc: `${this.AUDIO_SRC}/drums/chords/Ban_kick.mp3`
-          },
-          {
-            id: 6,
-            value: 'Bck_Snr',
-            audioSrc: `${this.AUDIO_SRC}/drums/chords/Bck_Snr.mp3`
-          },
-          {
-            id: 7,
-            value: 'Ben_kick',
-            audioSrc: `${this.AUDIO_SRC}/drums/chords/Ben_kick.mp3`
-          },
-          {
-            id: 8,
-            value: 'Bngo_4',
-            audioSrc: `${this.AUDIO_SRC}/drums/chords/Bngo_4.mp3`
-          },
-          {
-            id: 9,
-            value: 'Cel_snr',
-            audioSrc: `${this.AUDIO_SRC}/drums/chords/Cel_snr.mp3`
-          }
-        ]
+      { id: 1,
+       value: 'Drums',
+       chords:[{id:0,value:'Blank',audioSrc:`${this.AUDIO_SRC}/drums/chords/blank.mp3`},
+              {id:1,value:'Aco_Snr',audioSrc:`${this.AUDIO_SRC}/drums/chords/Aco_Snr.mp3`},
+              {id:2,value:'Afr_kick',audioSrc:`${this.AUDIO_SRC}/drums/chords/Afr_kick.mp3`},
+              {id:3,value:'Aki_H2',audioSrc:`${this.AUDIO_SRC}/drums/chords/Aki_H2.mp3`},
+              {id:4,value:'Aki_H4',audioSrc:`${this.AUDIO_SRC}/drums/chords/Aki_H4.mp3`},
+              {id:5,value:'Ban_kick',audioSrc:`${this.AUDIO_SRC}/drums/chords/Ban_kick.mp3`},
+              {id:6,value:'Bck_Snr',audioSrc:`${this.AUDIO_SRC}/drums/chords/Bck_Snr.mp3`},
+              {id:7,value:'Ben_kick',audioSrc:`${this.AUDIO_SRC}/drums/chords/Ben_kick.mp3`},
+              {id:8,value:'Bngo_4',audioSrc:`${this.AUDIO_SRC}/drums/chords/Bngo_4.mp3`},
+              {id:9,value:'Cel_snr',audioSrc:`${this.AUDIO_SRC}/drums/chords/Cel_snr.mp3`}],
       }
-    ];
+  ];
     this.displayTonesElement;
 
     this.sequenceArray = Storage.getAllSequence();

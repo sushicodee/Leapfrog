@@ -566,17 +566,19 @@
     margin: auto;
   }
   .header-container {
-    /* width: 64em; */
+    width: 64em;
     margin: auto;
-    /* width: 98.6509%; */
   }
 
   .header-overlay{
-    width:64em;
+    /* width:64em; */
     margin:auto;
     position: relative;
    }
 
+   .header-overlay .banner {
+      height:fit-content;
+   }
    /* .header-container{
     position: absolute;
     top: 0;

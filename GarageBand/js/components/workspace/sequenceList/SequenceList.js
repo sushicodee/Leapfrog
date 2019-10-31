@@ -24,6 +24,13 @@ this.instruments = [
             {id : 5,value : 'B',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-B.mp3`},
             {id : 6,value : 'C',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-C.mp3`},
             {id : 7,value : 'F',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-F.mp3`},
+            {id : 8,value : 'E-minor',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-Em.mp3`},
+            {id : 9,value : 'A-minor',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-Am.mp3`},
+            {id : 10,value : 'D-minor',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-Dm.mp3`},
+            {id : 11,value : 'G-minor',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-Gm.mp3`},
+            {id : 12,value : 'B-minor',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-Bm.mp3`},
+            {id : 13,value : 'C-minor',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-Cm.mp3`},
+            {id : 14,value : 'F-minor',audioSrc:`${this.AUDIO_SRC}/guitar/chords/cleanchord-Fm.mp3`},
             ]
     },
     { id: 1,

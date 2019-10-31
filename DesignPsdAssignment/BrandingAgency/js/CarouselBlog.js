@@ -1,19 +1,23 @@
+window.onresize = () => {
+
+} 
 var carouselContainer1 = document.getElementsByClassName(
   "carousel-container1"
 )[0];
-
 var carouselWrapper1 = document.getElementsByClassName("carousel-wrapper1")[0];
 var outerContainer1 = carouselContainer1.parentElement;
 carouselContainer1.classList.add("clearfix");
 carouselContainer1.style.position = "relative";
-carouselContainer1.style.width = `${outerContainer1.clientWidth} px`;
-carouselContainer1.style.height = `${500}px`;
+carouselContainer1.style.width = '887px';
+carouselContainer1.style.height = `500px`;
 carouselContainer1.style.margin = "auto";
 carouselContainer1.style.overflow = "hidden";
 
 carouselWrapper1.classList.add("clearfix");
 
 carouselWrapper1.style.position = "absolute";
+carouselWrapper1.style.width = `${carouselContainer1.clientWidth * carouselContainer1.childElementCount}px`;
+
 // controls
 
 // slide1r indicator
@@ -34,6 +38,9 @@ indicatorContainer1.style.left = `${carouselContainer1.clientWidth * 0.5}px`;
 
 var imageCount1 = carouselWrapper1.childElementCount;
 
+// window.onresize = function(){
+//   carouselContainer1.style.width = `${outerContainer1.clientWidth} px`;
+// }
 for (var i = 0; i < imageCount1; i++) {
   carouselWrapper1.children[i].style.float = "left";
   carouselWrapper1.children[i].style.width = `${outerContainer1.clientWidth}px`;
@@ -43,7 +50,6 @@ for (var i = 0; i < imageCount1; i++) {
 carouselWrapper1.style.width = `${carouselContainer1.clientWidth *
   imageCount1}px`;
   for(let j = 0; j< carouselWrapper1.children.length ; j ++){
-      
       carouselWrapper1.children[j].style.width = `${carouselWrapper1.children[0].clientWidth/carouselContainer1.clientWidth * 100 / 3}%`;
   }
 carouselWrapper1.style.marginLeft = "0px";
@@ -67,8 +73,6 @@ for (var i = 0; i < imageCount1; i++) {
   if (i != 0) {
     li1.style.marginLeft = "2.5px";
   }
-  //   li1.style.width = "5px";
-  //   li1.style.height = "5px";
 
   li1.style.borderRadius = "50%";
   li1.setAttribute("id", i);
@@ -77,7 +81,8 @@ for (var i = 0; i < imageCount1; i++) {
   li1.onclick = function(e) {
     var margin1 = carouselWrapper1.style.marginLeft;
     var temp1 = e.target.id;
-    let counter1 = 0;
+    let counter1 = 0 - carouselWrapper1.clientWidth % 10;
+    console.log(counter1);
     let limit1 = `${IMAGE_OFFSET1}`;
     if ((isMoving1 = false)) {
       //get current animation1 name
@@ -93,12 +98,13 @@ for (var i = 0; i < imageCount1; i++) {
         } else {
           //   left
           if (temp1 < position1) {
+            console.log(temp1,position1);
             newMargin1 = newMargin1 + counter1;
-            counter1 = counter1 + 1;
+            counter1 = counter1 + 10;
             carouselWrapper1.style.marginLeft = `${newMargin1}px`;
             
             if (
-              Math.abs(counter1 + 1) ==
+              Math.abs(counter1 + 10) >=
               limit1 * Math.abs(temp1 - position1)
             ) {
               clearInterval(slide1);
@@ -112,11 +118,11 @@ for (var i = 0; i < imageCount1; i++) {
             // right
           } else {
             newMargin1 = newMargin1 + counter1;
-            counter1 = counter1 - 1;
+            counter1 = counter1 - 10;
             carouselWrapper1.style.marginLeft = `${newMargin1}px`;
 
             if (
-              Math.abs(counter1 + 1) == limit1 * Math.abs(temp1 - position1)) {
+              Math.abs(counter1 + 10) >= limit1 * Math.abs(temp1 - position1)) {
               clearInterval(slide1);
               indicatorContainer1.children[position1].classList.remove("active");
               position1 = temp1;
@@ -124,8 +130,6 @@ for (var i = 0; i < imageCount1; i++) {
             }
           }
         }
-        // console.log('naw Margin is : ',newMargin1);
-        //   carouselWrapper1.style.marginLeft = `${temp1 * 370 * -1}px`;
       }, FRAME_RATE1);
 
       //replug animation
@@ -146,34 +150,38 @@ function animateforward1() {
     // slide1 animation
     var margin1 = carouselWrapper1.style.marginLeft;
     let temp1 = t1;
-    let counter1 = 0;
+    let counter1 = 0 - carouselContainer1.clientWidth % 10;
+   
+
     // console.log(IMAGE_OFFSET1);
     let limit1 = `${carouselContainer1.clientWidth}`;
     var MAXIMIUM1 = carouselWrapper1.clientWidth - limit1;
     temp1++;
     const slide1 = setInterval(() => {
-      isMoving1 = true;
       let newMargin1 = parseInt(margin1);
+      isMoving1 = true;
       if (position1 === indicatorContainer1.childElementCount - 1) {
-        clearInterval(animateF1);
+        clearInterval(slide1);
       } else {
         if (temp1 > position1) {
-            newMargin1 = newMargin1 + counter1;
-          counter1 = counter1 - 1;
+          newMargin1 = newMargin1 + counter1;
+          counter1 = counter1 - 10;
           carouselWrapper1.style.marginLeft = `${newMargin1}px`;
-         
-          if (Math.abs(newMargin1 - 1) > MAXIMIUM1) {
+          if (Math.abs(newMargin1 - 10) > MAXIMIUM1) {
 
             //max right
-            isMoving1 = false;
-
+            console.log('max right');
             clearInterval(slide1);
             clearInterval(animateF1);
+            isMoving1 = false;
+            indicatorContainer1.children[position1].classList.remove("active");
+            position1 = temp1;
+            indicatorContainer1.children[position1].classList.add("active");
+
             animateback1();
           }
-
           if (
-            Math.abs(counter1 + 1) === limit1 * Math.abs(temp1 - position1)) {
+            Math.abs(counter1 + 10) >= limit1 * Math.abs(temp1 - position1)) {
             clearInterval(slide1);
             isMoving1 = false;
             indicatorContainer1.children[position1].classList.remove("active");
@@ -184,7 +192,7 @@ function animateforward1() {
         }
       }
     }, FRAME_RATE1);
-  }, 1000);
+  }, 3000);
 }
 
 function animateback1() {
@@ -198,39 +206,46 @@ function animateback1() {
       }
     }
     let temp1 = t1;
-    var margin1 = carouselWrapper1.style.marginLeft;
-    let counter1 = 0;
+    var margin1 = carouselWrapper1.style.marginLeft ;
+    let counter1 = 0 - carouselContainer1.clientWidth % 10;
+    
     let limit1 = `${IMAGE_OFFSET1}`;
     var MINIMUM = 0;
     temp1--;
-    const slide1 = setInterval(() => {
+    const slide2 = setInterval(() => {
       isMoving1 = true;
-
-      let newMargin1 = parseInt(margin1);
-
-      if (temp1 < position1) {
-          newMargin1 = newMargin1 + counter1;
-          counter1 = counter1 + 1;
-
-        carouselWrapper1.style.marginLeft = `${newMargin1}px`;
-        if (newMargin1 + 1 > 0) {
-          clearInterval(slide1);
-          clearInterval(animateB1);
-          isMoving1 = false;
-          animateforward1();
+      let newMargin1 = parseInt(margin1); 
+      if (position1 === 0) {
+        clearInterval(slide2);
+      }else{
+        if (temp1 < position1) {
+            newMargin1 = newMargin1 + counter1;
+            counter1 = counter1 + 10;
+  
+          carouselWrapper1.style.marginLeft = `${newMargin1}px`;
+          if (Math.abs(newMargin1) -10 <= MINIMUM) {
+            //max left
+            console.log('min limit breached')
+            isMoving1 = false;
+            clearInterval(slide2);
+            clearInterval(animateB1);
+            carouselWrapper1.style.marginLeft = '0px'
+            
+            animateforward1();
+          }
+          //--
+          if (Math.abs(counter1 - 10) >= limit1 * Math.abs(temp1 - position1)) {
+            clearInterval(slide2);
+            isMoving1 = false;
+            indicatorContainer1.children[position1].classList.remove("active");
+            position1 = temp1;
+            indicatorContainer1.children[position1].classList.add("active");
+          }
         }
-        //--
-        if (Math.abs(counter1 - 1) === limit1 * Math.abs(temp1 - position1)) {
-          clearInterval(slide1);
-          indicatorContainer1.children[position1].classList.remove("active");
-          position1 = temp1;
-          indicatorContainer1.children[position1].classList.add("active");
-        }
-
-        // }
       }
+
     }, FRAME_RATE1 );
-  }, 1000);
+  }, 3000);
 }
 
 animateforward1();
