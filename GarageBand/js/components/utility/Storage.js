@@ -1,7 +1,6 @@
 class Storage{
     static saveSequence = function(sequenceId,sequence){
         localStorage.setItem(sequenceId,JSON.stringify(sequence));
-        // localStorage.setItem(sequenceId,(sequence));
     }
 
 

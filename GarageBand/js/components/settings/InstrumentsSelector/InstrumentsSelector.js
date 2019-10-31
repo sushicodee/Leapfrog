@@ -1,5 +1,4 @@
 import SequenceCreator from "./sequenceCreator/SequenceCreator.js";
-
 class InstrumentSelector {
   constructor(id, parentElement, width, height, color) {
     this.parentElement = parentElement;
@@ -8,7 +7,7 @@ class InstrumentSelector {
     this.height = height;
     this.id = id;
     this.backgroundColor = color;
-    this.AUDIO_SRC = '../../../../../../../Bio/Leapfrog/GarageBand/assets/audio/instruments';
+    this.AUDIO_SRC = '../../../../../../Leapfrog/GarageBand/assets/audio/instruments';
     this.durationsArray = [{id:0,name:'full',value:1},
     {id:1,name:'halfrate',value:0.5},
     {id:2,name:'1/3',value:1/3},

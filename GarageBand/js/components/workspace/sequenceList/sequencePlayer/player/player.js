@@ -187,6 +187,9 @@ class Player {
     let imgElement = document.createElement('img');
     imgElement.setAttribute('src',`../../../../../../../../../Bio/Leapfrog/GarageBand/assets/images/${currentSequenceArray[0].instrumentId}.png`);
     imgElement.style.width = '300px';
+    imgElement.style.margin = 'auto';
+    imgElement.style.display = 'block';
+
     this.displayInstrumentImg.appendChild(imgElement);
     this.displayTonesElement = document.createElement('div');
     this.displayTonesElement.setAttribute('class', `track-${this.id}`);
@@ -277,12 +280,15 @@ class Player {
     );
     this.createcontrolsElement.style.backgroundColor = 'rgba(0, 0, 0, 0.822)';
     this.playElement = document.createElement('button');
+    this.playElement.setAttribute('class', 'player-play-btn');
     this.element.appendChild(this.createcontrolsElement);
   }
   createPlayButton() {
     this.playElement.innerText = 'Play Sequence';
     this.playElement.style.padding = '5px 10px 5px 10px';
-    this.playElement.style.marginLeft = '10px';
+    this.playElement.style.marginLeft = '202px';
+    this.playElement.style.marginRight = '10px';
+
 
     this.createcontrolsElement.appendChild(this.playElement);
     this.playElement.addEventListener('click', e => this.handlePlaySequence());
@@ -302,6 +308,8 @@ class Player {
     this.stopElement.innerText = 'Stop Sequence';
     this.createcontrolsElement.appendChild(this.stopElement);
     this.stopElement.style.padding = '5px 10px 5px 10px';
+    this.stopElement.setAttribute('class', 'player-stop-btn');
+
 
     this.stopElement.addEventListener('click', e => this.handleStopSequence());
   }
@@ -313,6 +321,9 @@ class Player {
   createLoopRadio() {
     let loopLabel = document.createElement('label');
     this.createcontrolsElement.appendChild(loopLabel);
+    loopLabel.style.marginLeft = '10px';
+    loopLabel.style.marginRight = '10px';
+
     loopLabel.innerText = 'Loop';
     this.loopElement = document.createElement('input');
     this.createcontrolsElement.appendChild(this.loopElement);
@@ -337,9 +348,14 @@ class Player {
 
     let tempoTitleElement = document.createElement('h3');
     tempoTitleElement.innerText = 'Tempo';
+    tempoTitleElement.style.margin = '10px 0';
+    
     this.tempoButtonsElement.appendChild(tempoTitleElement);
 
     this.tempoElement = document.createElement('input');
+    this.tempoElement.style.marginLeft = '202px'
+    this.tempoElement.style.width = '300px'
+
     this.tempoElement.setAttribute('type', 'range');
     this.tempoElement.setAttribute('min', '0.25');
     this.tempoElement.setAttribute('max', '3');
@@ -370,14 +386,17 @@ class Player {
     this.selectFilterElement.setAttribute('class', 'filter-select-container');
     this.createcontrolsElement.appendChild(this.selectFilterElement);
     let filterHeading = document.createElement('h3');
+    filterHeading.style.margin = '10px 0';
     filterHeading.innerText = 'Filter';
     this.selectFilterElement.appendChild(filterHeading);
 
 
     this.typeLabel = document.createElement('label');
     this.typeLabel.innerText = 'Type';
+    this.typeLabel.style.marginLeft = '202px';
     this.selectFilterElement.appendChild(this.typeLabel);
     this.selectFilterBox = document.createElement('select');
+    this.selectFilterBox.style.marginLeft = '10px';
 
     this.selectFilterElement.appendChild(this.selectFilterBox);
     for (let i = 0; i < this.FILTERS.length; i++) {
@@ -510,9 +529,13 @@ class Player {
 
     let volumeTitleElement = document.createElement('h3');
     volumeTitleElement.innerText = 'Volume';
+    volumeTitleElement.style.margin = '10px 0';
+
     this.volumeButtonsElement.appendChild(volumeTitleElement);
 
     this.volumeElement = document.createElement('input');
+    this.volumeElement.style.marginLeft = '202px'
+    this.volumeElement.style.width = '300px'
     this.volumeElement.setAttribute('type', 'range');
     this.volumeElement.setAttribute('min', '-1');
     this.volumeElement.setAttribute('max', '1');

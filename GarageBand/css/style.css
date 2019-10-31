@@ -48,6 +48,16 @@ button:hover{
     border:1px solid red;
 }
 
+.player-play-btn:hover{
+    background-color: chartreuse;
+
+}
+
+.player-stop-btn:hover{
+    background-color: red;
+
+}
+
 
 
 
