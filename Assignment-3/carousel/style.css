@@ -8,8 +8,8 @@
   clear: both;
 }
 .indicator-container .indicator{
-    background-color:red;
+    background-color:rgb(184, 184, 184);
 }
 .indicator-container .active{
-    background-color:green;
+    background-color:rgb(21, 240, 57);
 }
