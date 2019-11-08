@@ -355,7 +355,7 @@ class Carousel {
   }
 
   handleLeftClick(){
-    if(this.position === 0){
+    if(this.position == 0){
       return;
     }
     this.state.currentState = this.state.runningState;
@@ -365,7 +365,7 @@ class Carousel {
     }
 
     this.counter = 0;
-    const right = setInterval(() =>{
+    const left = setInterval(() =>{
       this.margin = this.margin - 10;
       this.counter = this.counter + 10;
       this.setMargin();
@@ -373,15 +373,15 @@ class Carousel {
         this.indicatorContainer.children[this.position].classList.remove('active');
         this.position = this.temp;
         this.indicatorContainer.children[this.position].classList.add('active');
-        clearInterval(right);
         this.state.currentState = this.state.fixedState;
         this.haltSlideShow = false;
-
+        clearInterval(left);
       }
     },this.FRAME_RATE)
   }
   handleRightClick(){
-    if(this.position === this.wrapperElement.childElementCount -1){
+    
+    if(this.position == this.wrapperElement.childElementCount -1){
       return;
     }
     this.state.currentState = this.state.runningState;
@@ -399,9 +399,9 @@ class Carousel {
         this.indicatorContainer.children[this.position].classList.remove('active');
         this.position = this.temp;
         this.indicatorContainer.children[this.position].classList.add('active');
-        clearInterval(right);
         this.state.currentState = this.state.fixedState;
         this.haltSlideShow = false;
+        clearInterval(right);
 
       }
     },this.FRAME_RATE)
@@ -485,11 +485,13 @@ handleIndicatorClick(e){
 
  
   if(this.state.currentState === this.state.fixedState){
+    this.state.currentState = this.state.runningState;
     this.haltSlideShow = true;
     this.temp = e.target.id;
   
     if(this.position == this.temp){
       this.haltSlideShow = false;
+      this.state.currentState = this.state.fixedState;
       return;
     }
     else if(this.position > this.temp){
