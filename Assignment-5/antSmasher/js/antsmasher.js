@@ -893,5 +893,5 @@ if(document.cookie.split(';')[0].split('=')[1]){
   }
 
   //height,width,color,noOfAnts,antSize
-  game1 = new Game(1366, 768, "transparent", 200, 5);
+  game1 = new Game(500, 500, "transparent", 10, 50);
 })();
